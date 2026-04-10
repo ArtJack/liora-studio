@@ -7,6 +7,8 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
+    // Use file URL for local migrations, remote URL at runtime handled by adapter
     url: process.env["DATABASE_URL"],
+    directUrl: process.env["DATABASE_URL"],
   },
 });
