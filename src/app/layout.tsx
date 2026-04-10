@@ -26,7 +26,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "LIORA STUDIO — Luxury Fashion & Accessories",
+  title: "LIORA STUDIO USA — Luxury Fashion & Accessories",
   description:
     "Discover curated luxury fashion, designer bags, shoes, and fine jewelry at LIORA STUDIO.",
   openGraph: {
