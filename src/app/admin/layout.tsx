@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { LayoutDashboard, Package, Tags, MessageSquare } from "lucide-react";
+import { LayoutDashboard, Package, Tags, MessageSquare, LogOut } from "lucide-react";
+import { logoutAction } from "./login/actions";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -40,6 +41,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Tags size={16} />
               View Store
             </Link>
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="flex w-full items-center gap-3 px-3 py-2.5 text-sm text-muted hover:text-foreground hover:bg-surface-hover rounded-lg transition-colors"
+              >
+                <LogOut size={16} />
+                Sign Out
+              </button>
+            </form>
           </nav>
         </aside>
 
