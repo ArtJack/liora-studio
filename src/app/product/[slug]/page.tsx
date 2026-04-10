@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { ProductGallery } from "./gallery";
 import { AddToCartButton } from "./add-to-cart";
-import { MakeOfferForm } from "./make-offer-form";
+// import { MakeOfferForm } from "./make-offer-form";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 
@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: Props) {
             inStock={product.inStock}
           />
 
-          <MakeOfferForm productId={product.id} listPrice={product.price} />
+          {/* <MakeOfferForm productId={product.id} listPrice={product.price} /> */}
 
           <div className="mt-8 grid gap-4 border-t border-border pt-6 sm:grid-cols-2">
             <div className="rounded-[24px] border border-border/70 bg-background/25 p-5 text-sm">

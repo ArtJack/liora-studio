@@ -40,32 +40,11 @@ export default async function ShopPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-[1500px] px-4 py-10 sm:px-6 lg:px-8">
-      <div className="surface-panel mb-8 rounded-[34px] px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted">Collection</p>
-            <h1 className="mt-3 text-3xl font-light tracking-tight sm:text-4xl lg:text-5xl">
-          {category
-            ? categories.find((c) => c.slug === category)?.name ?? "Shop"
-            : "All Products"}
-            </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
-              Editorial essentials, sculptural accessories, and finishing pieces chosen to
-              feel elevated even when imagery is minimal.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:max-w-sm">
-            <div className="rounded-[24px] border border-border/70 bg-background/35 px-4 py-4">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-muted">Visible</p>
-              <p className="mt-2 text-2xl font-light">{products.length}</p>
-            </div>
-            <div className="rounded-[24px] border border-border/70 bg-background/35 px-4 py-4">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-muted">Categories</p>
-              <p className="mt-2 text-2xl font-light">{categories.length}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1 className="mb-2 text-3xl font-light tracking-tight sm:text-4xl">
+        {category
+          ? categories.find((c) => c.slug === category)?.name ?? "Shop"
+          : "All Products"}
+      </h1>
 
       <ShopFilters
         categories={categories.map((c) => ({ name: c.name, slug: c.slug }))}
