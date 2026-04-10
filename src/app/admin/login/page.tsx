@@ -6,10 +6,20 @@ import { loginAction } from "./actions";
 export default function AdminLoginPage() {
   const [state, formAction, isPending] = useActionState(loginAction, null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  function handleInput(e: React.FormEvent<HTMLInputElement>) {
+    const value = e.currentTarget.value.replace(/\D/g, "");
+    e.currentTarget.value = value;
+
+    if (value.length === 6) {
+      formRef.current?.requestSubmit();
+    }
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -21,7 +31,7 @@ export default function AdminLoginPage() {
           <p className="mt-2 text-xs text-muted/60">Admin Access</p>
         </div>
 
-        <form action={formAction} className="space-y-5">
+        <form ref={formRef} action={formAction} className="space-y-5">
           {state?.error && (
             <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
               {state.error}
@@ -45,18 +55,17 @@ export default function AdminLoginPage() {
               maxLength={6}
               required
               autoComplete="one-time-code"
+              onInput={handleInput}
               className="w-full rounded-xl border border-border/70 bg-surface/50 px-4 py-4 text-center text-2xl tracking-[0.5em] font-light text-foreground placeholder:text-muted/30 focus:border-accent/60 focus:outline-none"
               placeholder="000000"
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full rounded-xl bg-foreground py-3.5 text-sm uppercase tracking-[0.2em] text-background transition-opacity hover:opacity-90 disabled:opacity-50"
-          >
-            {isPending ? "Verifying..." : "Sign In"}
-          </button>
+          {isPending && (
+            <p className="text-center text-sm text-muted animate-pulse">
+              Verifying...
+            </p>
+          )}
         </form>
       </div>
     </div>
