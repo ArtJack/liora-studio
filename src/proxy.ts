@@ -5,8 +5,8 @@ import { COOKIE_NAME, validateToken } from "@/lib/admin-auth";
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Allow login and setup pages through
-  if (pathname === "/admin/login" || pathname === "/admin/login/setup") {
+  // Allow the login page through
+  if (pathname === "/admin/login") {
     return NextResponse.next();
   }
 
