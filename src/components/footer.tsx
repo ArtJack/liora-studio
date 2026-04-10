@@ -42,7 +42,7 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-xs uppercase tracking-[0.2em] text-background/40">Contact</h3>
             <p className="text-sm leading-relaxed text-background/60">
-              hello@liorastudio.com
+              hello@liorastudiousa.com
               <br />
               Mon - Fri, 9am - 6pm
             </p>
