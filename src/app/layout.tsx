@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "LIORA STUDIO",
     description: "Discover curated luxury fashion.",
-    url: "https://liorastudio.com", // Replace with real domain in production
+    url: "https://www.liorastudiousa.com",
     siteName: "LIORA STUDIO",
     images: [
       {
