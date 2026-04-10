@@ -1,26 +1,265 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--theme-background);
+  --color-foreground: var(--theme-foreground);
+  --color-accent: var(--theme-accent);
+  --color-accent-light: var(--theme-accent-light);
+  --color-accent-dark: var(--theme-accent-dark);
+  --color-muted: var(--theme-muted);
+  --color-border: var(--theme-border);
+  --color-surface: var(--theme-surface);
+  --color-surface-hover: var(--theme-surface-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  --theme-background: #f6f1ea;
+  --theme-foreground: #181411;
+  --theme-accent: #9f7a4d;
+  --theme-accent-light: #d8bf95;
+  --theme-accent-dark: #705433;
+  --theme-muted: #6f665f;
+  --theme-border: #d9cdc0;
+  --theme-surface: rgba(255, 251, 247, 0.82);
+  --theme-surface-hover: rgba(255, 248, 242, 0.98);
+  /* Mesh blobs */
+  --theme-blob-1: rgba(216, 191, 149, 0.30);
+  --theme-blob-2: rgba(159, 122, 77, 0.12);
+  --theme-blob-3: rgba(240, 225, 205, 0.22);
+  --theme-blob-4: rgba(180, 160, 130, 0.10);
+  /* Grid + noise */
+  --theme-grid: rgba(24, 20, 17, 0.035);
+  --theme-dot: rgba(24, 20, 17, 0.06);
+  /* Vignette */
+  --theme-vignette: rgba(24, 20, 17, 0.06);
+  color-scheme: light;
+}
+
+html.dark {
+  --theme-background: #120f0d;
+  --theme-foreground: #f6efe7;
+  --theme-accent: #d0a46e;
+  --theme-accent-light: #f3d4a8;
+  --theme-accent-dark: #b68449;
+  --theme-muted: #c7b7a8;
+  --theme-border: #4a3c31;
+  --theme-surface: rgba(33, 27, 22, 0.84);
+  --theme-surface-hover: rgba(43, 35, 28, 0.98);
+  /* Mesh blobs — more visible in dark */
+  --theme-blob-1: rgba(208, 164, 110, 0.22);
+  --theme-blob-2: rgba(180, 130, 70, 0.16);
+  --theme-blob-3: rgba(255, 220, 180, 0.08);
+  --theme-blob-4: rgba(140, 100, 60, 0.15);
+  /* Grid + noise */
+  --theme-grid: rgba(246, 239, 231, 0.03);
+  --theme-dot: rgba(208, 164, 110, 0.08);
+  /* Vignette — lighter */
+  --theme-vignette: rgba(0, 0, 0, 0.22);
+  color-scheme: dark;
+}
+
+html, body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+/* ─── Modern layered background ─── */
+/* Layer 1: Animated mesh gradient blobs (fixed) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -3;
+  background:
+    /* Primary warm blob — top-left, slow drift */
+    radial-gradient(ellipse 55% 50% at 12% 8%, var(--theme-blob-1), transparent),
+    /* Secondary accent — top-right, offset */
+    radial-gradient(ellipse 40% 45% at 85% 12%, var(--theme-blob-2), transparent),
+    /* Soft center wash */
+    radial-gradient(ellipse 70% 40% at 50% 32%, var(--theme-blob-3), transparent),
+    /* Bottom corner accent */
+    radial-gradient(ellipse 45% 35% at 75% 80%, var(--theme-blob-4), transparent),
+    /* Deep bottom-left warmth */
+    radial-gradient(ellipse 50% 40% at 15% 75%, var(--theme-blob-2), transparent);
+  animation: mesh-drift 28s ease-in-out infinite alternate;
+  transform: translateZ(0);
+}
+
+/* Layer 2: Dot grid pattern + vignette (fixed) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background-image:
+    /* Dot grid */
+    radial-gradient(circle at center, var(--theme-dot) 0.6px, transparent 0.6px),
+    /* Vignette — soft edge darkening */
+    radial-gradient(ellipse 85% 75% at 50% 45%, transparent 50%, var(--theme-vignette) 100%);
+  background-size: 24px 24px, 100% 100%;
+  background-position: 0 0, 0 0;
+}
+
+/* Layer 3: Page-level glow near top (scrolls with content) */
+.site-main::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 36rem;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 4%, color-mix(in srgb, var(--color-accent-light) 18%, transparent), transparent),
+    radial-gradient(ellipse 35% 30% at 20% 10%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent),
+    radial-gradient(ellipse 30% 30% at 78% 8%, color-mix(in srgb, var(--color-accent-dark) 6%, transparent), transparent);
+}
+
+/* Subtle slow drift for the mesh blobs */
+@keyframes mesh-drift {
+  0% {
+    filter: blur(0px);
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    filter: blur(2px);
+    transform: translateZ(0) scale(1.03) translateY(-8px);
+  }
+  100% {
+    filter: blur(0px);
+    transform: translateZ(0) scale(1) translateY(4px);
+  }
+}
+
+a, button, input, select, textarea {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  color: var(--color-foreground);
+}
+
+/* Luxury scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+* { scroll-behavior: smooth; }
+
+/* ─── Serif heading utility ─── */
+.font-display {
+  font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+}
+
+/* ─── Surface panels ─── */
+.surface-panel {
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--color-foreground) 5%, transparent),
+    0 8px 24px color-mix(in srgb, var(--color-foreground) 4%, transparent),
+    0 24px 80px color-mix(in srgb, var(--color-foreground) 6%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 25%, transparent);
+  backdrop-filter: blur(24px) saturate(1.2);
+}
+
+.site-main {
+  isolation: isolate;
+}
+
+.section-shell { position: relative; }
+.section-shell::before {
+  content: ""; position: absolute; inset: 0; border-radius: 32px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent);
+  pointer-events: none;
+}
+
+.grain-overlay { position: relative; }
+.grain-overlay::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(transparent, transparent), radial-gradient(color-mix(in srgb, var(--color-foreground) 6%, transparent) 0.45px, transparent 0.75px);
+  background-size: 100% 100%, 12px 12px; opacity: 0.18; pointer-events: none; mix-blend-mode: soft-light;
+}
+
+/* ─── Entrance animations ─── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.7s ease both;
+}
+.animate-slide-right {
+  animation: slide-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-scale-in {
+  animation: scale-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* ─── Marquee ─── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.theme-changing *,
+.theme-changing *::before,
+.theme-changing *::after {
+  transition: none !important;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track { animation: none; }
+  body::before { animation: none !important; }
 }
