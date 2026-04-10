@@ -2,17 +2,16 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { COOKIE_NAME, generateToken, verifyCredentials } from "@/lib/admin-auth";
+import { COOKIE_NAME, generateToken, verifyTotpCode } from "@/lib/admin-auth";
 
 export async function loginAction(
   _prevState: { error?: string } | null,
   formData: FormData
 ) {
-  const username = formData.get("username") as string;
-  const password = formData.get("password") as string;
+  const code = formData.get("code") as string;
 
-  if (!verifyCredentials(username, password)) {
-    return { error: "Invalid username or password" };
+  if (!code || !verifyTotpCode(code.trim())) {
+    return { error: "Invalid code. Try again." };
   }
 
   const cookieStore = await cookies();

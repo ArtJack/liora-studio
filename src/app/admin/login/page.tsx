@@ -1,10 +1,15 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useEffect } from "react";
 import { loginAction } from "./actions";
 
 export default function AdminLoginPage() {
   const [state, formAction, isPending] = useActionState(loginAction, null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -25,37 +30,23 @@ export default function AdminLoginPage() {
 
           <div>
             <label
-              htmlFor="username"
-              className="block text-[11px] uppercase tracking-[0.2em] text-muted mb-2"
+              htmlFor="code"
+              className="block text-[11px] uppercase tracking-[0.2em] text-muted mb-2 text-center"
             >
-              Username
+              Enter 6-digit code from Google Authenticator
             </label>
             <input
-              id="username"
-              name="username"
+              ref={inputRef}
+              id="code"
+              name="code"
               type="text"
+              inputMode="numeric"
+              pattern="[0-9]{6}"
+              maxLength={6}
               required
-              autoComplete="username"
-              className="w-full rounded-xl border border-border/70 bg-surface/50 px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:border-accent/60 focus:outline-none"
-              placeholder="Enter username"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-[11px] uppercase tracking-[0.2em] text-muted mb-2"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              autoComplete="current-password"
-              className="w-full rounded-xl border border-border/70 bg-surface/50 px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:border-accent/60 focus:outline-none"
-              placeholder="Enter password"
+              autoComplete="one-time-code"
+              className="w-full rounded-xl border border-border/70 bg-surface/50 px-4 py-4 text-center text-2xl tracking-[0.5em] font-light text-foreground placeholder:text-muted/30 focus:border-accent/60 focus:outline-none"
+              placeholder="000000"
             />
           </div>
 
@@ -64,7 +55,7 @@ export default function AdminLoginPage() {
             disabled={isPending}
             className="w-full rounded-xl bg-foreground py-3.5 text-sm uppercase tracking-[0.2em] text-background transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {isPending ? "Signing in..." : "Sign In"}
+            {isPending ? "Verifying..." : "Sign In"}
           </button>
         </form>
       </div>
