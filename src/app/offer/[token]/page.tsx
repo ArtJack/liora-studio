@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { statusLabel, statusClasses, OFFER_STATUS } from "@/lib/offer-status";
