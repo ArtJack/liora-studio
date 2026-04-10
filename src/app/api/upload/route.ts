@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 
 const ALLOWED_TYPES = new Set([
   "image/jpeg",
@@ -45,17 +44,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
+  const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const filename = `products/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
-  const uploadDir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(uploadDir, { recursive: true });
+  const blob = await put(filename, file, {
+    access: "public",
+  });
 
-  const ext = path.extname(file.name).toLowerCase() || ".jpg";
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-  const filepath = path.join(uploadDir, filename);
-
-  await writeFile(filepath, buffer);
-
-  return NextResponse.json({ url: `/api/uploads/${filename}` });
+  return NextResponse.json({ url: blob.url });
 }
