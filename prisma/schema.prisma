@@ -27,28 +27,12 @@ model Product {
   category    Category       @relation(fields: [categoryId], references: [id])
   categoryId  String
   images      ProductImage[]
-  offers      Offer[]
   sizes       String?
   colors      String?
   inStock     Boolean        @default(true)
   featured    Boolean        @default(false)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-}
-
-model Offer {
-  id            String   @id @default(cuid())
-  token         String   @unique @default(cuid())
-  customerName  String
-  customerEmail String
-  offerPrice    Float
-  status        String   @default("pending")
-  counterPrice  Float?
-  adminNote     String?
-  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId     String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
 }
 
 model ProductImage {

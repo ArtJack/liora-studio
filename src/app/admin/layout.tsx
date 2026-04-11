@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Package, Tags, MessageSquare, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, Tags, LogOut } from "lucide-react";
 import { logoutAction } from "./login/actions";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -26,13 +26,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <Package size={16} />
               Products
-            </Link>
-            <Link
-              href="/admin/offers"
-              className="flex items-center gap-3 px-3 py-2.5 text-sm text-muted hover:text-foreground hover:bg-surface-hover rounded-lg transition-colors"
-            >
-              <MessageSquare size={16} />
-              Offers
             </Link>
             <Link
               href="/"

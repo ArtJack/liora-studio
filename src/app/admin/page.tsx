@@ -9,17 +9,15 @@ import {
   TriangleAlert,
   ArrowUpRight,
   Sparkles,
-  MessageSquare,
 } from "lucide-react";
 
 export default async function AdminDashboard() {
-  const [products, categories, pendingOffers] = await Promise.all([
+  const [products, categories] = await Promise.all([
     prisma.product.findMany({
       include: { category: true, images: { orderBy: { position: "asc" }, take: 1 } },
       orderBy: { createdAt: "desc" },
     }),
     prisma.category.findMany({ orderBy: { name: "asc" } }),
-    prisma.offer.count({ where: { status: "pending" } }),
   ]);
 
   const totalProducts = products.length;
@@ -68,13 +66,6 @@ export default async function AdminDashboard() {
       detail: "need attention soon",
       icon: TriangleAlert,
       accent: "text-rose-600",
-    },
-    {
-      label: "Pending Offers",
-      value: pendingOffers.toLocaleString(),
-      detail: "awaiting your response",
-      icon: MessageSquare,
-      accent: "text-cyan-600",
     },
   ];
 
