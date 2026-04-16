@@ -43,16 +43,10 @@ async function main() {
     create: { name: "Bracelets", slug: "bracelets", description: "Bangles, cuffs, and chain bracelets" },
   });
 
-  const anklets = await prisma.category.upsert({
-    where: { slug: "anklets" },
+  const mysteryBox = await prisma.category.upsert({
+    where: { slug: "mystery-box" },
     update: {},
-    create: { name: "Anklets", slug: "anklets", description: "Delicate ankle jewelry" },
-  });
-
-  const giftSets = await prisma.category.upsert({
-    where: { slug: "gift-sets" },
-    update: {},
-    create: { name: "Gift Sets", slug: "gift-sets", description: "Mystery bags, curated boxes, and special bundles" },
+    create: { name: "Mystery Box", slug: "mystery-box", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
   });
 
   const products = [
@@ -251,51 +245,14 @@ async function main() {
       inStock: true,
     },
 
-    // --- Anklets ---
-    {
-      name: "Dainty Gold Chain Anklet",
-      slug: "dainty-gold-chain-anklet",
-      description: "Delicate cable chain anklet in polished gold-tone plating. Adjustable and light on the ankle, perfect for warm-weather styling.",
-      price: 85,
-      categoryId: anklets.id,
-      material: "Gold-Tone Plated Brass",
-      weight: 1.5,
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Silver Charm Anklet",
-      slug: "silver-charm-anklet",
-      description: "Sterling silver anklet with dangling star and moon charms. Adjustable 9-11 inches. Bohemian-chic style.",
-      price: 65,
-      categoryId: anklets.id,
-      material: "Sterling Silver",
-      weight: 3.2,
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Layered Crystal Anklet",
-      slug: "layered-crystal-anklet",
-      description: "Double-strand anklet with hand-set cubic zirconia stations on gold-plated chain. Adjustable with 2-inch extender.",
-      price: 110,
-      comparePrice: 150,
-      categoryId: anklets.id,
-      material: "Gold Plated",
-      gemstone: "Cubic Zirconia",
-      weight: 4.0,
-      featured: false,
-      inStock: true,
-    },
-
-    // --- Gift Sets ---
+    // --- Mystery Box ---
     {
       name: "Jewelry Mystery Bag",
       slug: "jewelry-mystery-bag",
       description: "A surprise selection of plated jewelry chosen from current LIORA STUDIO pieces. Expect a mix of polished staples and statement accents, packed for gifting or self-treating.",
       price: 78,
       comparePrice: 120,
-      categoryId: giftSets.id,
+      categoryId: mysteryBox.id,
       material: "Mixed Plated Finishes",
       gemstone: "Varied Decorative Stones",
       featured: true,
@@ -307,7 +264,7 @@ async function main() {
       description: "A higher-value gift set with multiple plated pieces selected to wear together. Designed as an easy elevated present with variety, polish, and gift-ready presentation.",
       price: 222,
       comparePrice: 320,
-      categoryId: giftSets.id,
+      categoryId: mysteryBox.id,
       material: "Mixed Plated Finishes",
       gemstone: "Varied Decorative Stones",
       featured: true,

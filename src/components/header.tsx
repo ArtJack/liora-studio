@@ -15,8 +15,7 @@ const navLinks = [
   { href: "/shop?category=necklaces", label: "Necklaces" },
   { href: "/shop?category=bracelets", label: "Bracelets" },
   { href: "/shop?category=brooches", label: "Brooches" },
-  { href: "/shop?category=anklets", label: "Anklets" },
-  { href: "/shop?category=gift-sets", label: "Gift Sets" },
+  { href: "/shop?category=mystery-box", label: "Mystery Box" },
 ];
 
 export function Header() {
@@ -87,17 +86,17 @@ export function Header() {
         </div>
 
         {mobileOpen && (
-          <nav className="border-t border-border/70 bg-surface px-4 py-5 lg:hidden">
-            <div className="mb-4 flex justify-center">
+          <nav className="border-t border-border/70 bg-surface px-4 py-4 lg:hidden">
+            <div className="mb-3 flex justify-center">
               <ThemeToggle />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-0.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-2xl border border-transparent px-4 py-3 text-sm tracking-[0.14em] text-muted hover:border-border/70 hover:bg-background/40 hover:text-foreground"
+                  className="block rounded-xl border border-transparent px-4 py-2.5 text-sm tracking-[0.14em] text-muted hover:border-border/70 hover:bg-background/40 hover:text-foreground"
                 >
                   {link.label}
                 </Link>
