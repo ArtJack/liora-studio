@@ -9,10 +9,12 @@ import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
   { href: "/shop", label: "Shop All" },
-  { href: "/shop?category=clothing", label: "Clothing" },
-  { href: "/shop?category=bags", label: "Bags" },
-  { href: "/shop?category=shoes", label: "Shoes" },
-  { href: "/shop?category=jewelry", label: "Jewelry" },
+  { href: "/shop?category=rings", label: "Rings" },
+  { href: "/shop?category=earrings", label: "Earrings" },
+  { href: "/shop?category=necklaces", label: "Necklaces" },
+  { href: "/shop?category=bracelets", label: "Bracelets" },
+  { href: "/shop?category=brooches", label: "Brooches" },
+  { href: "/shop?category=anklets", label: "Anklets" },
 ];
 
 export function Header() {
@@ -23,10 +25,10 @@ export function Header() {
     <>
       <header className="sticky top-0 z-50 border-b border-border/70 bg-surface/70 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-3 lg:h-20">
+          <div className="flex h-15 items-center justify-between gap-3 sm:h-16 lg:h-[4.75rem]">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 lg:hidden"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -34,19 +36,19 @@ export function Header() {
 
             <Link
               href="/"
-              className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
+              className="absolute left-1/2 -translate-x-1/2 text-center lg:static lg:translate-x-0"
             >
-              <h1 className="text-lg font-light tracking-[0.35em] text-foreground sm:text-xl lg:text-2xl">
+              <h1 className="text-[15px] font-light tracking-[0.24em] text-foreground sm:text-xl sm:tracking-[0.32em] lg:text-[1.55rem]">
                 LIORA STUDIO
               </h1>
             </Link>
 
-            <nav className="hidden items-center gap-8 lg:flex">
+            <nav className="hidden items-center gap-7 lg:flex">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm tracking-[0.16em] text-muted hover:text-foreground"
+                  className="text-[11px] uppercase tracking-[0.22em] text-muted hover:text-foreground"
                 >
                   {link.label}
                 </Link>
@@ -57,7 +59,7 @@ export function Header() {
               <ThemeToggle />
               <button
                 onClick={() => setIsOpen(true)}
-                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm"
+                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                 aria-label="Open shopping bag"
               >
                 <ShoppingBag size={18} />

@@ -13,6 +13,9 @@ type ProductData = {
   categoryId: string;
   sizes: string | null;
   colors: string | null;
+  material: string | null;
+  gemstone: string | null;
+  weight: number | null;
   featured: boolean;
   inStock: boolean;
   images: { url: string }[];
@@ -108,10 +111,10 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
   return (
     <form action={action} className="space-y-8">
       <div className="grid gap-8 xl:grid-cols-[minmax(0,1.1fr)_380px]">
-        <section className="surface-panel rounded-[32px] p-6 sm:p-8">
+        <section className="surface-panel rounded-[28px] p-5 sm:rounded-[32px] sm:p-8">
           <div className="mb-8">
             <p className="text-xs uppercase tracking-[0.24em] text-muted">Product Details</p>
-            <h2 className="font-display mt-3 text-4xl leading-none text-foreground">
+            <h2 className="font-display mt-3 text-3xl leading-none text-foreground sm:text-4xl">
               Core information
             </h2>
           </div>
@@ -196,13 +199,51 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted">
+                  Material
+                </label>
+                <input
+                  name="material"
+                  defaultValue={product?.material ?? ""}
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  placeholder="e.g. 18k Gold, Sterling Silver"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted">
+                  Gemstone
+                </label>
+                <input
+                  name="gemstone"
+                  defaultValue={product?.gemstone ?? ""}
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  placeholder="e.g. Diamond, Pearl, None"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div>
+                <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted">
+                  Weight <span className="normal-case text-muted/60">(grams)</span>
+                </label>
+                <input
+                  name="weight"
+                  type="number"
+                  step="0.1"
+                  defaultValue={product?.weight ?? ""}
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  placeholder="0.0"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted">
                   Sizes <span className="normal-case text-muted/60">(comma separated)</span>
                 </label>
                 <input
                   name="sizes"
                   defaultValue={product?.sizes ?? ""}
                   className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
-                  placeholder="XS, S, M, L, XL"
+                  placeholder="5, 6, 7, 8, 9"
                 />
               </div>
               <div>
@@ -213,7 +254,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                   name="colors"
                   defaultValue={product?.colors ?? ""}
                   className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
-                  placeholder="Black, White, Navy"
+                  placeholder="Gold, Silver, Rose Gold"
                 />
               </div>
             </div>
@@ -241,10 +282,10 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
           </div>
         </section>
 
-        <aside className="surface-panel rounded-[32px] p-6 sm:p-8">
+        <aside className="surface-panel rounded-[28px] p-5 sm:rounded-[32px] sm:p-8">
           <div className="mb-8">
             <p className="text-xs uppercase tracking-[0.24em] text-muted">Media</p>
-            <h2 className="font-display mt-3 text-4xl leading-none text-foreground">
+            <h2 className="font-display mt-3 text-3xl leading-none text-foreground sm:text-4xl">
               Image gallery
             </h2>
             <p className="mt-4 text-sm leading-7 text-muted">
@@ -269,7 +310,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
               setIsDraggingFiles(false);
               void handleFiles(event.dataTransfer.files);
             }}
-            className={`rounded-[28px] border border-dashed p-6 text-center transition-colors ${
+            className={`rounded-[24px] border border-dashed p-5 text-center transition-colors sm:rounded-[28px] sm:p-6 ${
               isDraggingFiles
                 ? "border-accent bg-accent/8"
                 : "border-border bg-background/30 hover:border-accent/50"
@@ -282,7 +323,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 <Images size={20} className="text-accent" />
               )}
             </div>
-            <h3 className="font-display mt-5 text-3xl text-foreground">
+            <h3 className="font-display mt-5 text-2xl text-foreground sm:text-3xl">
               Drag & drop product images
             </h3>
             <p className="mt-3 text-sm leading-7 text-muted">
@@ -370,11 +411,11 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
         </aside>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-stretch sm:justify-end">
         <button
           type="submit"
           disabled={isUploading}
-          className="rounded-full bg-foreground px-8 py-3.5 text-sm uppercase tracking-[0.14em] text-background transition-colors hover:bg-foreground/90 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-full bg-foreground px-8 py-3.5 text-sm uppercase tracking-[0.14em] text-background transition-colors hover:bg-foreground/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {submitLabel}
         </button>

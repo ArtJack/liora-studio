@@ -8,14 +8,14 @@ export function Footer() {
           <div className="md:col-span-1">
             <h2 className="mb-4 text-lg font-light tracking-[0.35em]">LIORA STUDIO</h2>
             <p className="text-sm leading-relaxed text-background/60">
-              Curated luxury fashion and accessories for the discerning individual.
+              Fine jewelry curated for craftsmanship, quality, and lasting beauty.
             </p>
           </div>
 
           <div>
             <h3 className="mb-4 text-xs uppercase tracking-[0.2em] text-background/40">Shop</h3>
             <ul className="space-y-2.5">
-              {["Clothing", "Bags", "Shoes", "Jewelry"].map((item) => (
+              {["Rings", "Earrings", "Necklaces", "Bracelets", "Brooches", "Anklets"].map((item) => (
                 <li key={item}>
                   <Link
                     href={`/shop?category=${item.toLowerCase()}`}

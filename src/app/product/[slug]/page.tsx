@@ -36,7 +36,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <nav className="mb-8 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted">
+      <nav className="mb-8 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-muted sm:text-xs">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span>/</span>
         <Link href="/shop" className="hover:text-foreground">Shop</Link>
@@ -48,12 +48,12 @@ export default async function ProductPage({ params }: Props) {
         <span className="text-foreground">{product.name}</span>
       </nav>
 
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
         <ProductGallery images={product.images} name={product.name} />
 
         <div className="surface-panel rounded-[32px] px-6 py-7 lg:px-8 lg:py-8">
           <p className="text-xs uppercase tracking-[0.26em] text-muted">{product.category.name}</p>
-          <h1 className="mt-3 text-3xl font-light lg:text-4xl">{product.name}</h1>
+          <h1 className="mt-3 text-[2rem] leading-tight font-light lg:text-4xl">{product.name}</h1>
 
           <div className="mt-5 flex items-center gap-3">
             <p className="text-xl">${product.price.toLocaleString()}</p>
@@ -67,6 +67,26 @@ export default async function ProductPage({ params }: Props) {
           <div className="mt-6 border-t border-border pt-6">
             <p className="text-sm leading-relaxed text-muted">{product.description}</p>
           </div>
+
+          {(product.material || product.gemstone || product.weight) && (
+            <div className="mt-5 flex flex-wrap gap-3">
+              {product.material && (
+                <span className="rounded-full border border-border/70 bg-background/25 px-3.5 py-1.5 text-xs uppercase tracking-[0.14em] text-muted">
+                  {product.material}
+                </span>
+              )}
+              {product.gemstone && (
+                <span className="rounded-full border border-border/70 bg-background/25 px-3.5 py-1.5 text-xs uppercase tracking-[0.14em] text-muted">
+                  {product.gemstone}
+                </span>
+              )}
+              {product.weight && (
+                <span className="rounded-full border border-border/70 bg-background/25 px-3.5 py-1.5 text-xs uppercase tracking-[0.14em] text-muted">
+                  {product.weight}g
+                </span>
+              )}
+            </div>
+          )}
 
           <AddToCartButton
             product={{
@@ -101,19 +121,21 @@ export default async function ProductPage({ params }: Props) {
 
       {relatedProducts.length > 0 && (
         <section className="mt-20">
-          <h2 className="mb-8 text-xs uppercase tracking-[0.3em] text-muted">You May Also Like</h2>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 lg:gap-x-6">
-            {relatedProducts.map((p) => (
-              <ProductCard
-                key={p.id}
-                slug={p.slug}
-                name={p.name}
-                price={p.price}
-                comparePrice={p.comparePrice}
-                image={p.images[0]?.url}
-                category={p.category.name}
-              />
-            ))}
+          <div className="content-band px-6 py-8 sm:px-8 sm:py-10">
+            <h2 className="mb-8 text-xs uppercase tracking-[0.3em] text-muted">You May Also Like</h2>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
+              {relatedProducts.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  slug={p.slug}
+                  name={p.name}
+                  price={p.price}
+                  comparePrice={p.comparePrice}
+                  image={p.images[0]?.url}
+                  category={p.category.name}
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}

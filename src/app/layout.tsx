@@ -6,6 +6,7 @@ import { CartProvider } from "@/components/cart-context";
 import { Header } from "@/components/header";
 import { Marquee } from "@/components/marquee";
 import { Footer } from "@/components/footer";
+import { ThemeScript } from "@/components/theme-script";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
@@ -26,22 +27,16 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "LIORA STUDIO USA — Luxury Fashion & Accessories",
+  metadataBase: new URL("https://www.liorastudiousa.com"),
+  title: "LIORA STUDIO USA — Fine Jewelry",
   description:
-    "Discover curated luxury fashion, designer bags, shoes, and fine jewelry at LIORA STUDIO.",
+    "Shop curated fine jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets at LIORA STUDIO.",
   openGraph: {
     title: "LIORA STUDIO",
-    description: "Discover curated luxury fashion.",
+    description: "Curated fine jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets.",
     url: "https://www.liorastudiousa.com",
     siteName: "LIORA STUDIO",
-    images: [
-      {
-        url: "/images/products/classic-leather-tote.png",
-        width: 800,
-        height: 800,
-        alt: "LIORA STUDIO - Designer Bags",
-      },
-    ],
+    images: [],
     locale: "en_US",
     type: "website",
   },
@@ -59,7 +54,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
     >
       <head>
-        <script src="/theme-init.js" suppressHydrationWarning />
+        <ThemeScript />
       </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
