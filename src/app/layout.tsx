@@ -28,15 +28,22 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.liorastudiousa.com"),
-  title: "LIORA STUDIO USA — Fine Jewelry",
+  title: "LIORA STUDIO USA — Curated Jewelry",
   description:
-    "Shop curated fine jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets at LIORA STUDIO.",
+    "Shop curated plated jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets at LIORA STUDIO.",
   openGraph: {
     title: "LIORA STUDIO",
-    description: "Curated fine jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets.",
+    description: "Curated plated jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets.",
     url: "https://www.liorastudiousa.com",
     siteName: "LIORA STUDIO",
-    images: [],
+    images: [
+      {
+        url: "/images/products/diamond-pendant-necklace.jpg",
+        width: 1200,
+        height: 1200,
+        alt: "LIORA STUDIO curated jewelry collection",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },

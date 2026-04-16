@@ -8,7 +8,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <h2 className="mb-4 text-lg font-light tracking-[0.35em]">LIORA STUDIO</h2>
             <p className="text-sm leading-relaxed text-background/60">
-              Fine jewelry curated for craftsmanship, quality, and lasting beauty.
+              Curated plated jewelry chosen for polish, finish, and lasting style.
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-background/10 pt-8 text-center md:flex-row md:items-center md:justify-between md:text-left">
           <p className="max-w-md text-xs tracking-[0.16em] text-background/40">
-            Carefully curated pieces, seasonal drops, and a quieter kind of luxury.
+            Curated jewelry, measured releases, and a quieter kind of presence.
           </p>
           <p className="text-xs tracking-wide text-background/40">
             &copy; {new Date().getFullYear()} LIORA STUDIO. All rights reserved.

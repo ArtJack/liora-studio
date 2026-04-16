@@ -2,11 +2,11 @@ import { Diamond } from "lucide-react";
 
 const items = [
   "Complimentary Shipping on Orders Over $500",
-  "100% Authenticated Luxury",
-  "New Arrivals Every Week",
+  "Curated Plated Jewelry",
+  "New Jewelry Arrivals Every Week",
   "14-Day Easy Returns",
   "Curated by LIORA STUDIO",
-  "Handcrafted & Artisan-Made",
+  "Gold-Tone, Silver-Tone & Gemstone Styles",
 ];
 
 function MarqueeContent() {

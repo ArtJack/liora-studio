@@ -205,7 +205,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                   name="material"
                   defaultValue={product?.material ?? ""}
                   className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
-                  placeholder="e.g. 18k Gold, Sterling Silver"
+                  placeholder="e.g. Gold-Plated Brass, Silver-Tone Plated Brass"
                 />
               </div>
               <div>

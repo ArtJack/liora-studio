@@ -44,12 +44,12 @@ export async function POST() {
     {
       name: "Diamond Solitaire Engagement Ring",
       slug: "diamond-solitaire-engagement-ring",
-      description: "Classic round brilliant diamond solitaire set in 18k white gold. 1.0ct, VS1 clarity, F color. Timeless elegance for that special moment.",
+      description: "Classic round brilliant solitaire on a white gold-tone plated band. Designed for a timeless bridal look with polished finish and statement sparkle.",
       price: 3200,
       comparePrice: 4500,
       categoryId: rings.id,
       sizes: "5, 6, 7, 8, 9",
-      material: "18k White Gold",
+      material: "White Gold-Tone Plated Brass",
       gemstone: "Diamond",
       weight: 3.8,
       featured: true,
@@ -58,11 +58,11 @@ export async function POST() {
     {
       name: "Rose Gold Signet Ring",
       slug: "rose-gold-signet-ring",
-      description: "Modern signet ring in polished 14k rose gold with a brushed matte face. A contemporary take on a timeless classic.",
+      description: "Modern signet ring in polished rose gold-tone plating with a brushed face. A contemporary take on a timeless classic.",
       price: 480,
       categoryId: rings.id,
       sizes: "5, 6, 7, 8, 9, 10",
-      material: "14k Rose Gold",
+      material: "Rose Gold-Tone Plated Brass",
       weight: 5.2,
       featured: false,
       inStock: true,
@@ -70,12 +70,12 @@ export async function POST() {
     {
       name: "Sapphire Halo Ring",
       slug: "sapphire-halo-ring",
-      description: "Vivid blue sapphire surrounded by a halo of micro-pavé diamonds. Set in platinum for lasting brilliance.",
+      description: "Vivid blue sapphire-style center stone surrounded by a halo of micro-pavé crystals. Finished in a platinum-tone plated setting for high contrast shine.",
       price: 2750,
       categoryId: rings.id,
       sizes: "5, 6, 7, 8",
-      material: "Platinum",
-      gemstone: "Sapphire, Diamond",
+      material: "Platinum-Tone Plated Brass",
+      gemstone: "Sapphire-Style Stone, Crystal",
       weight: 4.1,
       featured: true,
       inStock: true,
@@ -85,11 +85,11 @@ export async function POST() {
     {
       name: "Diamond Stud Earrings",
       slug: "diamond-stud-earrings",
-      description: "Classic round brilliant diamond studs in 18k white gold. 0.50ct total weight, VS clarity, F color. The perfect everyday luxury.",
+      description: "Classic round brilliant-style studs in a white gold-tone plated setting. A polished everyday pair with bright, light-catching sparkle.",
       price: 1850,
       categoryId: earrings.id,
-      material: "18k White Gold",
-      gemstone: "Diamond",
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond-Style Stone",
       weight: 1.8,
       featured: true,
       inStock: true,
@@ -97,10 +97,10 @@ export async function POST() {
     {
       name: "Pearl Drop Earrings",
       slug: "pearl-drop-earrings",
-      description: "Lustrous South Sea pearl drops on 18k gold vermeil hooks. 10mm freshwater pearls with a natural iridescent sheen.",
+      description: "Lustrous pearl drops on polished gold-tone plated hooks. A soft, elegant silhouette designed for day-to-evening wear.",
       price: 380,
       categoryId: earrings.id,
-      material: "18k Gold Vermeil",
+      material: "Gold-Tone Plated Brass",
       gemstone: "Pearl",
       weight: 2.4,
       featured: false,
@@ -109,11 +109,11 @@ export async function POST() {
     {
       name: "Gold Hoop Earrings",
       slug: "gold-hoop-earrings",
-      description: "Sleek 14k gold hoops with a polished finish. 30mm diameter, lightweight and comfortable for all-day wear.",
+      description: "Sleek gold-tone plated hoops with a polished finish. Lightweight, bright, and easy to wear all day.",
       price: 320,
       comparePrice: 420,
       categoryId: earrings.id,
-      material: "14k Gold",
+      material: "Gold-Tone Plated Brass",
       weight: 3.0,
       featured: true,
       inStock: true,
@@ -138,7 +138,7 @@ export async function POST() {
       description: "Vibrant hand-painted enamel butterfly with rhinestone accents. A statement piece inspired by Art Nouveau design.",
       price: 120,
       categoryId: brooches.id,
-      material: "Sterling Silver",
+      material: "Silver-Tone Plated Brass",
       gemstone: "Rhinestone",
       weight: 8.3,
       featured: false,
@@ -162,10 +162,10 @@ export async function POST() {
     {
       name: "Gold Chain Necklace",
       slug: "gold-chain-necklace",
-      description: "18k gold-plated chain necklace with a modern link design. Hypoallergenic and tarnish-resistant. 18 inches.",
+      description: "Gold-tone plated chain necklace with a modern link design. Clean, polished, and easy to layer at 18 inches.",
       price: 280,
       categoryId: necklaces.id,
-      material: "18k Gold Plated",
+      material: "Gold-Tone Plated Brass",
       weight: 8.5,
       featured: true,
       inStock: true,
@@ -173,11 +173,11 @@ export async function POST() {
     {
       name: "Diamond Pendant Necklace",
       slug: "diamond-pendant-necklace",
-      description: "Delicate 0.25ct diamond pendant on a 16-inch 14k white gold chain. A subtle sparkle for everyday elegance.",
+      description: "Delicate pendant necklace on a white gold-tone plated chain. Designed to give everyday outfits a clean point of sparkle.",
       price: 950,
       categoryId: necklaces.id,
-      material: "14k White Gold",
-      gemstone: "Diamond",
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond-Style Stone",
       weight: 2.8,
       featured: true,
       inStock: true,
@@ -185,11 +185,11 @@ export async function POST() {
     {
       name: "Layered Pearl Choker",
       slug: "layered-pearl-choker",
-      description: "Triple-strand freshwater pearl choker with gold-filled clasp. Adjustable 14-16 inches. Modern meets classic.",
+      description: "Triple-strand pearl choker with a polished gold-tone plated clasp. A modern take on classic evening styling.",
       price: 420,
       comparePrice: 560,
       categoryId: necklaces.id,
-      material: "Gold Filled",
+      material: "Gold-Tone Plated Brass",
       gemstone: "Pearl",
       weight: 22.0,
       featured: false,
@@ -200,13 +200,13 @@ export async function POST() {
     {
       name: "Tennis Bracelet",
       slug: "diamond-tennis-bracelet",
-      description: "Classic diamond tennis bracelet with 3.0ct total weight in 14k white gold. Secure box clasp with safety latch.",
+      description: "Classic tennis bracelet with bright stone detailing in a white gold-tone plated setting. Designed for high shine and formal polish.",
       price: 4200,
       comparePrice: 5500,
       categoryId: bracelets.id,
       sizes: "6.5, 7, 7.5",
-      material: "14k White Gold",
-      gemstone: "Diamond",
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond-Style Stone",
       weight: 9.5,
       featured: true,
       inStock: true,
@@ -214,10 +214,10 @@ export async function POST() {
     {
       name: "Gold Cuff Bracelet",
       slug: "gold-cuff-bracelet",
-      description: "Minimalist open cuff bracelet in hammered 14k gold. Adjustable fit for most wrist sizes. Bold yet refined.",
+      description: "Minimalist open cuff bracelet in hammered gold-tone plating. Adjustable, bold, and easy to style alone or layered.",
       price: 680,
       categoryId: bracelets.id,
-      material: "14k Gold",
+      material: "Gold-Tone Plated Brass",
       weight: 18.0,
       featured: true,
       inStock: true,
@@ -225,11 +225,11 @@ export async function POST() {
     {
       name: "Beaded Gemstone Bracelet",
       slug: "beaded-gemstone-bracelet",
-      description: "Stretch bracelet with natural turquoise and lapis lazuli beads. Sterling silver accent beads. One size fits most.",
+      description: "Stretch bracelet with turquoise- and lapis-tone beads plus silver-tone plated accents. An easy statement piece with soft color contrast.",
       price: 95,
       categoryId: bracelets.id,
-      material: "Sterling Silver",
-      gemstone: "Turquoise, Lapis Lazuli",
+      material: "Silver-Tone Plated Brass",
+      gemstone: "Turquoise-Style Beads, Lapis-Style Beads",
       weight: 14.0,
       featured: false,
       inStock: true,
@@ -239,10 +239,10 @@ export async function POST() {
     {
       name: "Dainty Gold Chain Anklet",
       slug: "dainty-gold-chain-anklet",
-      description: "Delicate cable chain anklet in 14k gold fill. Adjustable 9-10.5 inches with lobster clasp. Perfect for summer.",
+      description: "Delicate cable chain anklet in polished gold-tone plating. Adjustable and light on the ankle, perfect for warm-weather styling.",
       price: 85,
       categoryId: anklets.id,
-      material: "14k Gold Fill",
+      material: "Gold-Tone Plated Brass",
       weight: 1.5,
       featured: true,
       inStock: true,
@@ -273,16 +273,28 @@ export async function POST() {
     },
   ];
 
-  let created = 0;
   for (const product of products) {
-    const existing = await prisma.product.findUnique({ where: { slug: product.slug } });
-    if (!existing) {
-      await prisma.product.create({ data: product });
-      created++;
-    }
+    const imageUrl = `/images/products/${product.slug}.jpg`;
+
+    await prisma.product.upsert({
+      where: { slug: product.slug },
+      update: {
+        ...product,
+        images: {
+          deleteMany: {},
+          create: [{ url: imageUrl, position: 0 }],
+        },
+      },
+      create: {
+        ...product,
+        images: {
+          create: [{ url: imageUrl, position: 0 }],
+        },
+      },
+    });
   }
 
   return NextResponse.json({
-    message: `Seed completed: 6 categories, ${created} new products created`,
+    message: `Seed completed: 6 categories, ${products.length} products synced with images`,
   });
 }

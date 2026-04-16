@@ -1,4 +1,5 @@
 import { getTotpUri } from "@/lib/admin-auth";
+import Image from "next/image";
 import * as QRCode from "qrcode";
 
 export default async function SetupPage() {
@@ -23,12 +24,13 @@ export default async function SetupPage() {
           <p className="text-sm text-muted mb-4">
             Scan this QR code with Google Authenticator:
           </p>
-          <img
+          <Image
             src={qrDataUrl}
             alt="TOTP QR Code"
             width={256}
             height={256}
             className="mx-auto rounded-xl"
+            unoptimized
           />
         </div>
 

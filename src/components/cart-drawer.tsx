@@ -36,7 +36,7 @@ export function CartDrawer() {
       <div className="surface-panel fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col rounded-none border-l border-border/70 bg-surface">
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <h2 className="text-sm uppercase tracking-[0.2em]">
-            Shopping Bag ({items.length})
+            Cart ({items.length})
           </h2>
           <button
             onClick={() => setIsOpen(false)}
@@ -50,7 +50,7 @@ export function CartDrawer() {
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-muted">
               <ShoppingBag size={40} strokeWidth={1} />
-              <p className="mt-4 text-sm">Your bag is empty</p>
+              <p className="mt-4 text-sm">Your cart is empty</p>
             </div>
           ) : (
             <div className="space-y-6">

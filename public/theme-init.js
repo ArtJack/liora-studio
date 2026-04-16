@@ -16,7 +16,7 @@
     document.documentElement.dataset.themePreference = themePreference;
     document.documentElement.dataset.theme = resolvedTheme;
     document.documentElement.classList.toggle("dark", resolvedTheme === "dark");
-  } catch (e) {
+  } catch {
     document.documentElement.dataset.themePreference = "system";
     document.documentElement.dataset.theme = "light";
   }

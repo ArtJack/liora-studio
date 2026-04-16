@@ -1,29 +1,55 @@
 const silhouettes = {
-  clothing: (
+  rings: (
     <g opacity="0.12">
-      {/* Dress silhouette */}
-      <path d="M50 18 C45 18 42 20 40 24 L38 30 L35 28 L30 32 L36 36 L32 70 L28 90 L72 90 L68 70 L64 36 L70 32 L65 28 L62 30 L60 24 C58 20 55 18 50 18Z" fill="currentColor"/>
-      <ellipse cx="50" cy="14" rx="6" ry="7" fill="currentColor"/>
+      <circle cx="50" cy="56" r="20" stroke="currentColor" strokeWidth="5" fill="none"/>
+      <polygon points="50,25 43,36 57,36" fill="currentColor"/>
+      <polygon points="50,25 40,35 60,35" fill="currentColor" opacity="0.45"/>
     </g>
   ),
-  bags: (
+  earrings: (
     <g opacity="0.12">
-      {/* Handbag silhouette */}
-      <path d="M30 45 Q30 38 38 35 L38 28 Q38 20 50 20 Q62 20 62 28 L62 35 Q70 38 70 45 L72 80 Q72 85 67 85 L33 85 Q28 85 28 80 Z" fill="currentColor"/>
-      <path d="M42 28 Q42 24 50 24 Q58 24 58 28" stroke="currentColor" strokeWidth="2.5" fill="none" opacity="0.3"/>
-      <rect x="46" y="52" width="8" height="5" rx="2" fill="currentColor" opacity="0.3"/>
+      <path d="M36 24 C36 18 40 14 45 14 C50 14 54 18 54 24 C54 29 51 32 45 38 C39 32 36 29 36 24Z" fill="currentColor"/>
+      <circle cx="45" cy="54" r="11" stroke="currentColor" strokeWidth="4" fill="none"/>
+      <path d="M64 24 C64 18 68 14 73 14 C78 14 82 18 82 24 C82 29 79 32 73 38 C67 32 64 29 64 24Z" fill="currentColor" opacity="0.8"/>
+      <circle cx="73" cy="54" r="11" stroke="currentColor" strokeWidth="4" fill="none"/>
     </g>
   ),
-  shoes: (
+  necklaces: (
     <g opacity="0.12">
-      {/* Heel shoe silhouette */}
-      <path d="M20 65 L30 40 Q32 35 38 33 L60 30 Q68 29 72 32 L78 36 Q82 40 82 45 L82 65 Q82 70 77 70 L70 70 L68 55 L35 58 L32 70 L25 70 Q20 70 20 65Z" fill="currentColor"/>
-      <line x1="68" y1="55" x2="70" y2="70" stroke="currentColor" strokeWidth="2" opacity="0.3"/>
+      <path d="M24 28 C34 16 66 16 76 28" stroke="currentColor" strokeWidth="4" fill="none"/>
+      <path d="M30 32 C38 22 62 22 70 32" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.35"/>
+      <polygon points="50,45 40,58 50,74 60,58" fill="currentColor"/>
+    </g>
+  ),
+  bracelets: (
+    <g opacity="0.12">
+      <circle cx="50" cy="54" r="22" stroke="currentColor" strokeWidth="5" fill="none"/>
+      <circle cx="50" cy="54" r="14" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.35"/>
+      <circle cx="50" cy="32" r="5" fill="currentColor"/>
+    </g>
+  ),
+  brooches: (
+    <g opacity="0.12">
+      <circle cx="50" cy="40" r="11" fill="currentColor"/>
+      <circle cx="36" cy="50" r="11" fill="currentColor" opacity="0.85"/>
+      <circle cx="64" cy="50" r="11" fill="currentColor" opacity="0.85"/>
+      <circle cx="42" cy="64" r="11" fill="currentColor" opacity="0.78"/>
+      <circle cx="58" cy="64" r="11" fill="currentColor" opacity="0.78"/>
+      <circle cx="50" cy="54" r="7" fill="white" opacity="0.4"/>
+    </g>
+  ),
+  anklets: (
+    <g opacity="0.12">
+      <path d="M26 58 C36 72 64 72 74 58" stroke="currentColor" strokeWidth="5" fill="none"/>
+      <circle cx="38" cy="62" r="3" fill="currentColor"/>
+      <circle cx="50" cy="66" r="3.5" fill="currentColor"/>
+      <circle cx="62" cy="62" r="3" fill="currentColor"/>
+      <path d="M50 66 L50 78" stroke="currentColor" strokeWidth="2.5"/>
+      <circle cx="50" cy="82" r="4.5" fill="currentColor"/>
     </g>
   ),
   jewelry: (
     <g opacity="0.12">
-      {/* Ring with gem silhouette */}
       <circle cx="50" cy="52" r="22" stroke="currentColor" strokeWidth="5" fill="none"/>
       <circle cx="50" cy="52" r="18" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.3"/>
       <polygon points="50,28 44,38 56,38" fill="currentColor"/>
@@ -34,16 +60,22 @@ const silhouettes = {
 };
 
 const palettes: Record<string, { from: string; via: string; to: string; accent: string }> = {
-  clothing: { from: "#e8ddd0", via: "#f5efe6", to: "#ede4d8", accent: "#9a8672" },
-  bags: { from: "#e5d5c0", via: "#f0e4d4", to: "#dcc9b5", accent: "#a08050" },
-  shoes: { from: "#ddd8d2", via: "#eae6e0", to: "#d5d0ca", accent: "#7a746e" },
+  rings: { from: "#ece3db", via: "#f8f0e6", to: "#dfd2c5", accent: "#9b7e63" },
+  earrings: { from: "#e8ddd7", via: "#f7ede7", to: "#ded0c6", accent: "#9d8066" },
+  necklaces: { from: "#eee3d9", via: "#f8f1ea", to: "#e4d6cb", accent: "#a07c5f" },
+  bracelets: { from: "#e6ddd4", via: "#f3ece5", to: "#dbcdc0", accent: "#8d7764" },
+  brooches: { from: "#eee1dc", via: "#f9efea", to: "#e1d2ca", accent: "#9c776e" },
+  anklets: { from: "#ece2d8", via: "#f8efe7", to: "#ddd0c4", accent: "#8d7967" },
   jewelry: { from: "#e8e2da", via: "#f6f0e8", to: "#e0d8ce", accent: "#8a7d6d" },
 };
 
 const darkPalettes: Record<string, { from: string; via: string; to: string; accent: string }> = {
-  clothing: { from: "#2a2420", via: "#1e1a16", to: "#252018", accent: "#b09878" },
-  bags: { from: "#2c2418", via: "#201c14", to: "#28201a", accent: "#c0a060" },
-  shoes: { from: "#26241e", via: "#1c1a16", to: "#222018", accent: "#908880" },
+  rings: { from: "#28211b", via: "#1d1814", to: "#251d18", accent: "#c3a384" },
+  earrings: { from: "#271f1a", via: "#1c1714", to: "#231b17", accent: "#bf9e82" },
+  necklaces: { from: "#2a211a", via: "#1f1813", to: "#251d17", accent: "#c19d7d" },
+  bracelets: { from: "#261f1a", via: "#1c1713", to: "#221b16", accent: "#b69b82" },
+  brooches: { from: "#2a1f1c", via: "#1f1715", to: "#241b18", accent: "#c19a8d" },
+  anklets: { from: "#251f19", via: "#1c1714", to: "#221c17", accent: "#af9982" },
   jewelry: { from: "#28241e", via: "#1e1c16", to: "#24201a", accent: "#a09080" },
 };
 

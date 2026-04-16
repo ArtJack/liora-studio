@@ -17,35 +17,35 @@ const categories = [
 
 const editorialMoments = [
   {
-    eyebrow: "Jewelry Philosophy",
-    title: "One intentional piece says more than a dozen trendy ones.",
+    eyebrow: "Collector's Eye",
+    title: "The strongest jewelry leaves an impression before it asks for attention.",
     body:
-      "We source jewelry that balances craftsmanship with wearability — pieces you reach for daily, not just on occasion. Quality materials, timeless design.",
-    note: "Gold, silver, gemstones, pearls",
+      "We favor pieces with clean proportion, tactile finish, and real wear value, so the collection feels composed whether you choose one accent or build a full stack.",
+    note: "Rings, chains, earrings, pearls",
   },
   {
-    eyebrow: "Sourcing & Value",
-    title: "Factory-direct pricing, curated with care.",
+    eyebrow: "Material Standard",
+    title: "Gold-tone, silver-tone, pearls, and stones selected for clarity, tone, and presence.",
     body:
-      "By working directly with artisan workshops, we deliver fine jewelry at a fraction of traditional retail. Every piece is inspected and authenticated before it ships.",
-    note: "Direct sourcing, quality assurance, honest pricing",
+      "Our edit is built around plated finishes and decorative stones that feel polished in the hand and refined on the body: balanced settings, clean color, and finish-led design.",
+    note: "Plated finish, balanced setting, lasting style",
   },
 ];
 
 const servicePillars = [
   {
-    title: "Curated Selection",
-    copy: "Every piece is hand-picked for quality, design, and value — we carry only jewelry we would wear ourselves.",
+    title: "Curated Edit",
+    copy: "Every listing earns its place through proportion, finish, and long-term wearability rather than trend volume.",
     icon: Sparkles,
   },
   {
-    title: "Authenticity Guaranteed",
-    copy: "Materials are verified and every item is inspected before shipping. Real gold, real silver, real gemstones.",
+    title: "Material Confidence",
+    copy: "Every piece is inspected before shipping, with plated-finish materials and decorative details described clearly from the start.",
     icon: ShieldCheck,
   },
   {
-    title: "Direct Pricing",
-    copy: "By sourcing directly from workshops, we cut out middlemen and pass the savings on to you.",
+    title: "Measured Pricing",
+    copy: "Direct sourcing keeps the collection elevated without relying on inflated retail markups or unnecessary middle layers.",
     icon: Star,
   },
 ];
@@ -72,25 +72,24 @@ export default async function HomePage() {
           <div className="relative grid gap-10 px-5 py-12 sm:px-10 sm:py-18 lg:grid-cols-[minmax(0,1.1fr)_360px] lg:px-16 lg:py-24">
             <div className="max-w-2xl animate-fade-up">
               <p className="mb-4 text-xs uppercase tracking-[0.4em] text-background/55">
-                Fine Jewelry Collection
+                Jewelry Collection
               </p>
               <h2 className="font-display text-4xl leading-[0.94] tracking-tight text-background sm:text-6xl lg:text-8xl">
-                Jewelry that speaks before you do.
+                Jewelry with presence, polish, and lasting style.
               </h2>
               <p className="mt-5 max-w-xl text-base font-light leading-relaxed text-background/70 sm:text-lg">
-                Rings, earrings, necklaces, bracelets, brooches, and anklets — curated for
-                craftsmanship, sourced directly, and priced honestly.
+                A focused collection of rings, earrings, necklaces, bracelets, brooches, and anklets selected for finish, styling value, and quiet impact.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href="/shop"
                   className="inline-flex items-center gap-2 rounded-full bg-background px-8 py-3.5 text-sm uppercase tracking-[0.18em] text-foreground shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-background/92"
                 >
-                  Explore Collection
+                  Explore Jewelry
                   <ArrowRight size={16} />
                 </Link>
                 <p className="text-sm uppercase tracking-[0.18em] text-background/55">
-                  Curation, authentication, delivery
+                  Curated, clearly described, ready to wear
                 </p>
               </div>
             </div>
@@ -99,19 +98,19 @@ export default async function HomePage() {
               <div className="animate-slide-right rounded-[28px] border border-white/10 bg-white/8 p-6 backdrop-blur-md">
                 <p className="text-xs uppercase tracking-[0.3em] text-background/45">Studio Note</p>
                 <p className="font-display mt-4 text-[1.9rem] leading-tight text-background sm:text-3xl">
-                  Every piece selected for material, craft, and lasting beauty.
+                  Chosen for how it catches light, sits on the body, and keeps its character over time.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="animate-scale-in delay-100 rounded-[24px] border border-white/10 bg-white/6 p-5 backdrop-blur-md">
                   <p className="text-xs uppercase tracking-[0.28em] text-background/45">Drops</p>
                   <p className="mt-3 text-3xl font-light text-background">12</p>
-                  <p className="mt-1 text-sm text-background/60">new arrivals this month</p>
+                  <p className="mt-1 text-sm text-background/60">new pieces this month</p>
                 </div>
                 <div className="animate-scale-in delay-200 rounded-[24px] border border-white/10 bg-white/6 p-5 backdrop-blur-md">
-                  <p className="text-xs uppercase tracking-[0.28em] text-background/45">Finish</p>
-                  <p className="mt-3 text-3xl font-light text-background">A+</p>
-                  <p className="mt-1 text-sm text-background/60">authenticated selection</p>
+                  <p className="text-xs uppercase tracking-[0.28em] text-background/45">Finishes</p>
+                  <p className="mt-3 text-3xl font-light text-background">Plated</p>
+                  <p className="mt-1 text-sm text-background/60">clearly described selection</p>
                 </div>
               </div>
             </div>
@@ -149,7 +148,7 @@ export default async function HomePage() {
               <div>
                 <h2 className="text-xs uppercase tracking-[0.3em] text-muted">Featured</h2>
                 <p className="font-display mt-3 max-w-xl text-4xl leading-tight text-foreground sm:text-[2.7rem]">
-                  Standout pieces chosen for craftsmanship, material, and lasting beauty.
+                  Signature pieces chosen for line, finish, and collector appeal.
                 </p>
               </div>
               <Link
@@ -189,7 +188,7 @@ export default async function HomePage() {
               <div>
                 <h2 className="text-xs uppercase tracking-[0.3em] text-muted">Recent Arrivals</h2>
                 <p className="font-display mt-3 max-w-xl text-4xl leading-tight text-foreground sm:text-[2.7rem]">
-                  Newly added pieces, straight from the latest studio update.
+                  Newly added pieces from the latest studio selection.
                 </p>
               </div>
               <Link
@@ -227,7 +226,7 @@ export default async function HomePage() {
           <div className="section-shell surface-panel rounded-[34px] p-8 sm:p-10 lg:p-12">
             <p className="text-xs uppercase tracking-[0.28em] text-muted">Editorial Notes</p>
             <h2 className="font-display mt-4 max-w-2xl text-4xl leading-tight text-foreground sm:text-5xl">
-              Styling that feels deliberate before it feels loud.
+              Styling that feels resolved before it feels excessive.
             </h2>
             <div className="mt-10 grid gap-6">
               {editorialMoments.map((moment) => (
@@ -263,13 +262,12 @@ export default async function HomePage() {
             </div>
 
             <div className="grain-overlay overflow-hidden rounded-[34px] border border-border/70 bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-accent-light)_16%,var(--color-surface)),color-mix(in_srgb,var(--color-background)_88%,black))] p-8 sm:p-10">
-              <p className="text-xs uppercase tracking-[0.28em] text-muted">Client Journal</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-muted">Collector Journal</p>
               <h3 className="font-display mt-4 text-4xl leading-tight text-foreground">
-                New arrivals, exclusive drops, and jewelry tips worth reading.
+                New arrivals, sourcing notes, and jewelry guidance worth opening.
               </h3>
               <p className="mt-4 max-w-md text-sm leading-7 text-muted">
-                Short, visual updates with new jewelry drops, styling inspiration,
-                and first access to limited pieces.
+                Short, visual updates with new pieces, finishing notes, and first access to limited drops before they circulate widely.
               </p>
               <form className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <input
@@ -296,7 +294,7 @@ export default async function HomePage() {
         <div className="section-shell surface-panel mx-auto max-w-7xl rounded-[34px] px-6 py-20 text-center sm:px-10">
           <p className="mb-4 text-xs uppercase tracking-[0.4em] text-muted">The LIORA Promise</p>
           <h2 className="font-display mx-auto max-w-xl text-4xl leading-tight lg:text-5xl">
-            Every piece is inspected, authenticated, and curated for exceptional quality.
+            Every piece is inspected, clearly described, and chosen to feel elevated rather than disposable.
           </h2>
           <div className="mt-12 flex flex-wrap justify-center gap-12 text-sm text-muted">
             <div className="text-center">
