@@ -1,19 +1,11 @@
-export const dynamic = "force-dynamic";
-
-import { prisma } from "@/lib/db";
+import { getAdminProducts } from "@/lib/admin-data";
 import Link from "next/link";
 import { Plus, Pencil } from "lucide-react";
 import { DeleteProductButton } from "./delete-button";
 import { AdminProductThumb } from "./admin-product-thumb";
 
 export default async function AdminProductsPage() {
-  const products = await prisma.product.findMany({
-    include: {
-      images: { orderBy: { position: "asc" }, take: 1 },
-      category: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const products = await getAdminProducts();
 
   return (
     <div>

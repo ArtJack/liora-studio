@@ -1,13 +1,11 @@
-export const dynamic = "force-dynamic";
-
-import { prisma } from "@/lib/db";
+import { getAdminCategories } from "@/lib/admin-data";
 import { ProductForm } from "../product-form";
 import { createProduct } from "../actions";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export default async function NewProductPage() {
-  const categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
+  const categories = await getAdminCategories();
 
   return (
     <div>
