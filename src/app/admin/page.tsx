@@ -1,6 +1,4 @@
-export const dynamic = "force-dynamic";
-
-import { prisma } from "@/lib/db";
+import { getAdminDashboard } from "@/lib/admin-data";
 import Link from "next/link";
 import {
   Package,
@@ -11,23 +9,7 @@ import {
 } from "lucide-react";
 
 export default async function AdminDashboard() {
-  const now = new Date();
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const sevenDaysAgo = new Date(todayStart);
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-
-  const [products, viewsRaw, todayViews] = await Promise.all([
-    prisma.product.findMany({
-      include: { category: true },
-    }),
-    prisma.productView.findMany({
-      where: { viewedAt: { gte: sevenDaysAgo } },
-      select: { productId: true, viewedAt: true },
-    }),
-    prisma.productView.count({
-      where: { viewedAt: { gte: todayStart } },
-    }),
-  ]);
+  const { products, viewsRaw, todayViews } = await getAdminDashboard();
 
   const totalProducts = products.length;
   const featuredCount = products.filter((p) => p.featured).length;
@@ -35,6 +17,8 @@ export default async function AdminDashboard() {
   const inventoryValue = products.reduce((sum, p) => sum + p.price, 0);
 
   // --- 7-day chart data ---
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const dayLabels: string[] = [];
   const dayCounts: number[] = [];
   for (let i = 6; i >= 0; i--) {

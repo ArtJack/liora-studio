@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/db";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 function slugify(text: string) {
@@ -59,6 +59,7 @@ function validateProduct(formData: FormData) {
 }
 
 function revalidateAll() {
+  revalidateTag("admin", "max");
   revalidatePath("/admin/products");
   revalidatePath("/");
   revalidatePath("/shop");

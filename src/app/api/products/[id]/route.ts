@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -13,6 +14,8 @@ export async function DELETE(
   }
 
   await prisma.product.delete({ where: { id } });
+
+  revalidateTag("admin", "max");
 
   return NextResponse.json({ success: true });
 }

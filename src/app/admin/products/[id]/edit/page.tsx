@@ -1,6 +1,4 @@
-export const dynamic = "force-dynamic";
-
-import { prisma } from "@/lib/db";
+import { getAdminProduct, getAdminCategories } from "@/lib/admin-data";
 import { notFound } from "next/navigation";
 import { ProductForm } from "../../product-form";
 import { updateProduct } from "../../actions";
@@ -16,11 +14,8 @@ export default async function EditProductPage({ params }: Props) {
   const { id } = await params;
 
   const [product, categories] = await Promise.all([
-    prisma.product.findUnique({
-      where: { id },
-      include: { images: { orderBy: { position: "asc" } } },
-    }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
+    getAdminProduct(id),
+    getAdminCategories(),
   ]);
 
   if (!product) notFound();
