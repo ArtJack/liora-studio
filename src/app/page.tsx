@@ -6,52 +6,46 @@ import { ProductCard } from "@/components/product-card";
 import { ArrowRight, Sparkles, Star, ShieldCheck } from "lucide-react";
 
 
-import Image from "next/image";
-
 const categories = [
-  { name: "Clothing", slug: "clothing", description: "Timeless silhouettes", image: "/images/products/cashmere-oversized-sweater.png" },
-  { name: "Bags", slug: "bags", description: "Iconic accessories", image: "/images/products/classic-leather-tote.png" },
-  { name: "Shoes", slug: "shoes", description: "Artisan craftsmanship", image: "/images/products/suede-ankle-boots.jpg" },
-  { name: "Jewelry", slug: "jewelry", description: "Refined elegance", image: "/images/products/diamond-stud-earrings.jpg" },
+  { name: "Rings", slug: "rings", description: "Elegant statements" },
+  { name: "Earrings", slug: "earrings", description: "Everyday sparkle" },
+  { name: "Necklaces", slug: "necklaces", description: "Layered beauty" },
+  { name: "Bracelets", slug: "bracelets", description: "Wrist adornments" },
+  { name: "Brooches", slug: "brooches", description: "Timeless accents" },
+  { name: "Anklets", slug: "anklets", description: "Subtle charm" },
 ];
-const categoryVisualClasses: Record<string, string> = {
-  clothing: "text-stone-700 dark:text-stone-200",
-  bags: "text-amber-900 dark:text-amber-200",
-  shoes: "text-zinc-700 dark:text-zinc-200",
-  jewelry: "text-stone-600 dark:text-stone-200",
-};
 
 const editorialMoments = [
   {
-    eyebrow: "Wardrobe Direction",
-    title: "Build a quieter wardrobe with fewer, sharper decisions.",
+    eyebrow: "Jewelry Philosophy",
+    title: "One intentional piece says more than a dozen trendy ones.",
     body:
-      "We focus on pieces with strong line, tactile finish, and repeat wear value, so the collection feels styled before you even reach for accessories.",
-    note: "Tailoring, soft structure, neutral depth",
+      "We source jewelry that balances craftsmanship with wearability — pieces you reach for daily, not just on occasion. Quality materials, timeless design.",
+    note: "Gold, silver, gemstones, pearls",
   },
   {
-    eyebrow: "Accessory Focus",
-    title: "Let one sculptural piece carry the room.",
+    eyebrow: "Sourcing & Value",
+    title: "Factory-direct pricing, curated with care.",
     body:
-      "Whether it is a polished tote, a sharp pump, or a clean gold layer, the right object should anchor the look rather than compete with it.",
-    note: "Bags, heels, jewelry with presence",
+      "By working directly with artisan workshops, we deliver fine jewelry at a fraction of traditional retail. Every piece is inspected and authenticated before it ships.",
+    note: "Direct sourcing, quality assurance, honest pricing",
   },
 ];
 
 const servicePillars = [
   {
-    title: "Editorial Curation",
-    copy: "Every product is selected to feel cohesive across the full collection rather than dropped in at random.",
+    title: "Curated Selection",
+    copy: "Every piece is hand-picked for quality, design, and value — we carry only jewelry we would wear ourselves.",
     icon: Sparkles,
   },
   {
-    title: "Authenticity First",
-    copy: "Verification sits at the center of the buying experience, so confidence is built into every order.",
+    title: "Authenticity Guaranteed",
+    copy: "Materials are verified and every item is inspected before shipping. Real gold, real silver, real gemstones.",
     icon: ShieldCheck,
   },
   {
-    title: "Lasting Appeal",
-    copy: "We favor finish, proportion, and material quality over trend-chasing pieces that expire after one season.",
+    title: "Direct Pricing",
+    copy: "By sourcing directly from workshops, we cut out middlemen and pass the savings on to you.",
     icon: Star,
   },
 ];
@@ -72,22 +66,22 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden px-4 pt-6 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
         <div className="grain-overlay section-shell surface-panel mx-auto max-w-7xl overflow-hidden rounded-[36px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,color-mix(in_srgb,var(--color-accent-light)_42%,transparent),transparent_32%),linear-gradient(135deg,color-mix(in_srgb,var(--color-foreground)_96%,transparent),color-mix(in_srgb,var(--color-foreground)_88%,var(--color-accent-dark)))]" />
-          <div className="relative grid gap-14 px-6 py-18 sm:px-10 lg:grid-cols-[minmax(0,1.1fr)_360px] lg:px-16 lg:py-24">
+          <div className="relative grid gap-10 px-5 py-12 sm:px-10 sm:py-18 lg:grid-cols-[minmax(0,1.1fr)_360px] lg:px-16 lg:py-24">
             <div className="max-w-2xl animate-fade-up">
               <p className="mb-4 text-xs uppercase tracking-[0.4em] text-background/55">
-                New Collection 2026
+                Fine Jewelry Collection
               </p>
-              <h2 className="font-display text-5xl leading-[0.92] tracking-tight text-background sm:text-6xl lg:text-8xl">
-                Refined luxury for the quietly unforgettable.
+              <h2 className="font-display text-4xl leading-[0.94] tracking-tight text-background sm:text-6xl lg:text-8xl">
+                Jewelry that speaks before you do.
               </h2>
-              <p className="mt-6 max-w-xl text-lg font-light leading-relaxed text-background/70">
-                Discover a tighter, more editorial take on luxury fashion with sculptural bags,
-                tailored silhouettes, and jewelry chosen for presence rather than noise.
+              <p className="mt-5 max-w-xl text-base font-light leading-relaxed text-background/70 sm:text-lg">
+                Rings, earrings, necklaces, bracelets, brooches, and anklets — curated for
+                craftsmanship, sourced directly, and priced honestly.
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href="/shop"
                   className="inline-flex items-center gap-2 rounded-full bg-background px-8 py-3.5 text-sm uppercase tracking-[0.18em] text-foreground shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-background/92"
@@ -104,8 +98,8 @@ export default async function HomePage() {
             <div className="grid content-end gap-4 self-stretch lg:pl-8">
               <div className="animate-slide-right rounded-[28px] border border-white/10 bg-white/8 p-6 backdrop-blur-md">
                 <p className="text-xs uppercase tracking-[0.3em] text-background/45">Studio Note</p>
-                <p className="font-display mt-4 text-3xl leading-tight text-background">
-                  Pieces selected for texture, restraint, and lasting wear.
+                <p className="font-display mt-4 text-[1.9rem] leading-tight text-background sm:text-3xl">
+                  Every piece selected for material, craft, and lasting beauty.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -129,33 +123,20 @@ export default async function HomePage() {
         <h2 className="mb-12 text-center text-xs uppercase tracking-[0.3em] text-muted">
           Shop by Category
         </h2>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:gap-6">
           {categories.map((cat, index) => (
             <Link
               key={cat.slug}
               href={`/shop?category=${cat.slug}`}
-              className={`group surface-panel relative aspect-[4/5] overflow-hidden rounded-[30px] p-3 animate-fade-up delay-${(index + 1) * 100}`}
+              className={`group surface-panel rounded-[30px] p-6 sm:p-8 animate-fade-up delay-${(index + 1) * 100} transition-all hover:-translate-y-1`}
             >
-              <div
-                className={`absolute inset-3 overflow-hidden rounded-[24px] ${
-                  categoryVisualClasses[cat.slug] ?? "text-stone-700 dark:text-stone-200"
-                }`}
-              >
-                <Image
-                  src={cat.image}
-                  alt={cat.name}
-                  fill
-                  priority={index < 2}
-                  className="object-cover opacity-100 saturate-[1.05] transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,transparent_42%,rgba(17,14,12,0.18)_65%,rgba(17,14,12,0.72)_100%)]" />
-                <div className="absolute inset-x-4 top-4 h-px bg-white/30" />
-                <div className="absolute inset-x-0 bottom-0 z-10 p-4 text-white">
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/60">{cat.description}</p>
-                  <h3 className="font-display mt-2 text-2xl font-normal transition-transform group-hover:translate-x-1">{cat.name}</h3>
-                </div>
-              </div>
+              <p className="text-xs uppercase tracking-[0.3em] text-muted">{cat.description}</p>
+              <h3 className="font-display mt-3 text-3xl leading-none text-foreground transition-colors group-hover:text-accent sm:text-4xl">
+                {cat.name}
+              </h3>
+              <p className="mt-4 text-xs uppercase tracking-[0.18em] text-muted/60 transition-colors group-hover:text-accent/60">
+                Shop now &rarr;
+              </p>
             </Link>
           ))}
         </div>
@@ -163,64 +144,80 @@ export default async function HomePage() {
 
       {featuredProducts.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <div className="mb-10 flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-xs uppercase tracking-[0.3em] text-muted">Featured</h2>
-              <p className="font-display mt-3 max-w-xl text-4xl leading-tight text-foreground">
-                Standout pieces chosen for silhouette, finish, and permanence.
-              </p>
+          <div className="content-band px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
+            <div className="mb-10 flex items-end justify-between gap-6">
+              <div>
+                <h2 className="text-xs uppercase tracking-[0.3em] text-muted">Featured</h2>
+                <p className="font-display mt-3 max-w-xl text-4xl leading-tight text-foreground sm:text-[2.7rem]">
+                  Standout pieces chosen for craftsmanship, material, and lasting beauty.
+                </p>
+              </div>
+              <Link
+                href="/shop"
+                className="hidden items-center gap-1 text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground sm:flex"
+              >
+                View All <ArrowRight size={12} />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+              {featuredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  slug={product.slug}
+                  name={product.name}
+                  price={product.price}
+                  comparePrice={product.comparePrice}
+                  image={product.images[0]?.url}
+                  category={product.category.name}
+                />
+              ))}
             </div>
             <Link
               href="/shop"
-              className="flex items-center gap-1 text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground"
+              className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground sm:hidden"
             >
               View All <ArrowRight size={12} />
             </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
-            {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                slug={product.slug}
-                name={product.name}
-                price={product.price}
-                comparePrice={product.comparePrice}
-                image={product.images[0]?.url}
-                category={product.category.name}
-              />
-            ))}
           </div>
         </section>
       )}
 
       {recentProducts.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <div className="mb-10 flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-xs uppercase tracking-[0.3em] text-muted">Recent Arrivals</h2>
-              <p className="font-display mt-3 max-w-xl text-4xl leading-tight text-foreground">
-                Newly added pieces, straight from the latest studio update.
-              </p>
+          <div className="content-band px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
+            <div className="mb-10 flex items-end justify-between gap-6">
+              <div>
+                <h2 className="text-xs uppercase tracking-[0.3em] text-muted">Recent Arrivals</h2>
+                <p className="font-display mt-3 max-w-xl text-4xl leading-tight text-foreground sm:text-[2.7rem]">
+                  Newly added pieces, straight from the latest studio update.
+                </p>
+              </div>
+              <Link
+                href="/shop"
+                className="hidden items-center gap-1 text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground sm:flex"
+              >
+                Browse Shop <ArrowRight size={12} />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
+              {recentProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  slug={product.slug}
+                  name={product.name}
+                  price={product.price}
+                  comparePrice={product.comparePrice}
+                  image={product.images[0]?.url}
+                  category={product.category.name}
+                />
+              ))}
             </div>
             <Link
               href="/shop"
-              className="flex items-center gap-1 text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground"
+              className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.2em] text-muted hover:text-foreground sm:hidden"
             >
               Browse Shop <ArrowRight size={12} />
             </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 lg:gap-x-6">
-            {recentProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                slug={product.slug}
-                name={product.name}
-                price={product.price}
-                comparePrice={product.comparePrice}
-                image={product.images[0]?.url}
-                category={product.category.name}
-              />
-            ))}
           </div>
         </section>
       )}
@@ -268,11 +265,11 @@ export default async function HomePage() {
             <div className="grain-overlay overflow-hidden rounded-[34px] border border-border/70 bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-accent-light)_16%,var(--color-surface)),color-mix(in_srgb,var(--color-background)_88%,black))] p-8 sm:p-10">
               <p className="text-xs uppercase tracking-[0.28em] text-muted">Client Journal</p>
               <h3 className="font-display mt-4 text-4xl leading-tight text-foreground">
-                Receive edits, arrivals, and styling notes worth opening.
+                New arrivals, exclusive drops, and jewelry tips worth reading.
               </h3>
               <p className="mt-4 max-w-md text-sm leading-7 text-muted">
-                Our letters are brief, visual, and selective. Expect curated product drops,
-                wardrobe direction, and first look access to limited arrivals.
+                Short, visual updates with new jewelry drops, styling inspiration,
+                and first access to limited pieces.
               </p>
               <form className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <input
@@ -299,7 +296,7 @@ export default async function HomePage() {
         <div className="section-shell surface-panel mx-auto max-w-7xl rounded-[34px] px-6 py-20 text-center sm:px-10">
           <p className="mb-4 text-xs uppercase tracking-[0.4em] text-muted">The LIORA Promise</p>
           <h2 className="font-display mx-auto max-w-xl text-4xl leading-tight lg:text-5xl">
-            Every piece is carefully authenticated and curated for exceptional quality.
+            Every piece is inspected, authenticated, and curated for exceptional quality.
           </h2>
           <div className="mt-12 flex flex-wrap justify-center gap-12 text-sm text-muted">
             <div className="text-center">

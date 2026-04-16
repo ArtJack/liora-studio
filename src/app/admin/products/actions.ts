@@ -23,6 +23,11 @@ function validateProduct(formData: FormData) {
   const categoryId = formData.get("categoryId") as string;
   const sizes = formData.get("sizes") as string;
   const colors = formData.get("colors") as string;
+  const material = formData.get("material") as string;
+  const gemstone = formData.get("gemstone") as string;
+  const weightRaw = formData.get("weight") as string;
+  const weight =
+    weightRaw && weightRaw.trim() !== "" ? parseFloat(weightRaw) : null;
   const featured = formData.get("featured") === "on";
   const inStock = formData.get("inStock") === "on";
   const imageUrls = formData.getAll("imageUrls") as string[];
@@ -32,6 +37,8 @@ function validateProduct(formData: FormData) {
   if (isNaN(price) || price < 0) throw new Error("Price must be a non-negative number");
   if (comparePrice !== null && (isNaN(comparePrice) || comparePrice < 0))
     throw new Error("Compare price must be a non-negative number");
+  if (weight !== null && (isNaN(weight) || weight < 0))
+    throw new Error("Weight must be a non-negative number");
   if (!categoryId) throw new Error("Category is required");
 
   return {
@@ -42,6 +49,9 @@ function validateProduct(formData: FormData) {
     categoryId,
     sizes: sizes || null,
     colors: colors || null,
+    material: material || null,
+    gemstone: gemstone || null,
+    weight,
     featured,
     inStock,
     imageUrls: imageUrls.filter((url) => url.trim()),
@@ -68,6 +78,9 @@ export async function createProduct(formData: FormData) {
       categoryId: data.categoryId,
       sizes: data.sizes,
       colors: data.colors,
+      material: data.material,
+      gemstone: data.gemstone,
+      weight: data.weight,
       featured: data.featured,
       inStock: data.inStock,
       images: {
@@ -95,6 +108,9 @@ export async function updateProduct(id: string, formData: FormData) {
       categoryId: data.categoryId,
       sizes: data.sizes,
       colors: data.colors,
+      material: data.material,
+      gemstone: data.gemstone,
+      weight: data.weight,
       featured: data.featured,
       inStock: data.inStock,
       images: {

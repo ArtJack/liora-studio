@@ -18,22 +18,25 @@ model Category {
 }
 
 model Product {
-  id          String         @id @default(cuid())
-  name        String
-  slug        String         @unique
-  description String
-  price       Float
+  id           String         @id @default(cuid())
+  name         String
+  slug         String         @unique
+  description  String
+  price        Float
   comparePrice Float?
-  category    Category       @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  images      ProductImage[]
-  offers      Offer[]
-  sizes       String?
-  colors      String?
-  inStock     Boolean        @default(true)
-  featured    Boolean        @default(false)
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  category     Category       @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  images       ProductImage[]
+  offers       Offer[]
+  sizes        String?
+  colors       String?
+  material     String?
+  gemstone     String?
+  weight       Float?
+  inStock      Boolean        @default(true)
+  featured     Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
 
 model Offer {
