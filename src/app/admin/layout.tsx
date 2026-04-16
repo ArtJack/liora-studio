@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LayoutDashboard, Package, Tags, LogOut } from "lucide-react";
 import { logoutAction } from "./login/actions";
+import { AdminBottomNav } from "./admin-bottom-nav";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -47,8 +48,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </aside>
 
         {/* Main */}
-        <main className="flex-1 p-6 lg:p-10">{children}</main>
+        <main className="flex-1 p-4 pb-24 sm:p-6 sm:pb-24 lg:p-10 lg:pb-10">{children}</main>
       </div>
+      <AdminBottomNav />
     </div>
   );
 }

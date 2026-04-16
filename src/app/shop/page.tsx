@@ -1,8 +1,8 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 120;
 
-import { prisma } from "@/lib/db";
 import { ProductCard } from "@/components/product-card";
 import { ShopFilters } from "./filters";
+import { getShopCategories, getShopProducts } from "@/lib/storefront-data";
 
 type Props = {
   searchParams: Promise<{ category?: string; sort?: string; q?: string }>;
@@ -12,31 +12,7 @@ export default async function ShopPage({ searchParams }: Props) {
   const params = await searchParams;
   const { category, sort, q } = params;
 
-  const where: Record<string, unknown> = {};
-  if (category) {
-    where.category = { slug: category };
-  }
-  if (q) {
-    where.OR = [
-      { name: { contains: q } },
-      { description: { contains: q } },
-    ];
-  }
-
-  type OrderBy = Record<string, "asc" | "desc">;
-  let orderBy: OrderBy = { createdAt: "desc" };
-  if (sort === "price-asc") orderBy = { price: "asc" };
-  else if (sort === "price-desc") orderBy = { price: "desc" };
-  else if (sort === "name") orderBy = { name: "asc" };
-
-  const [products, categories] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      orderBy,
-      include: { images: { orderBy: { position: "asc" }, take: 1 }, category: true },
-    }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
-  ]);
+  const [products, categories] = await Promise.all([getShopProducts(category, sort, q), getShopCategories()]);
 
   return (
     <div className="mx-auto max-w-[1500px] px-4 py-10 sm:px-6 lg:px-8">

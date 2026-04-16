@@ -31,7 +31,53 @@ export default async function AdminProductsPage() {
         </Link>
       </div>
 
-      <div className="bg-surface border border-border rounded-xl overflow-hidden">
+      {/* Mobile card layout */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
+        {products.map((product) => (
+          <Link
+            key={product.id}
+            href={`/admin/products/${product.id}/edit`}
+            className="flex items-center gap-3 rounded-[20px] border border-border bg-surface p-3 transition-colors active:bg-surface-hover"
+          >
+            <div className="h-16 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-background relative">
+              <AdminProductThumb
+                name={product.name}
+                category={product.category.name}
+                src={product.images[0]?.url}
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-foreground">{product.name}</p>
+              <p className="mt-0.5 text-xs text-muted">{product.category.name}</p>
+              <div className="mt-1.5 flex items-center gap-2">
+                <span className="text-sm font-medium">${product.price.toLocaleString()}</span>
+                <span
+                  className={`inline-flex text-[9px] tracking-wider uppercase px-1.5 py-0.5 rounded-full ${
+                    product.inStock
+                      ? "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400"
+                      : "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400"
+                  }`}
+                >
+                  {product.inStock ? "In Stock" : "Out"}
+                </span>
+                {product.featured && (
+                  <span className="inline-flex text-[9px] tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400">
+                    Featured
+                  </span>
+                )}
+              </div>
+            </div>
+          </Link>
+        ))}
+        {products.length === 0 && (
+          <p className="py-12 text-center text-muted col-span-full">
+            No products yet. Add your first product to get started.
+          </p>
+        )}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden lg:block bg-surface border border-border rounded-xl overflow-hidden">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border text-xs text-muted tracking-wide uppercase">

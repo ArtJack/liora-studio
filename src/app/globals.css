@@ -268,16 +268,160 @@ a, button, input, select, textarea {
   transition: none !important;
 }
 
-.theme-icon-dark {
-  display: none;
-}
-
-html.dark .theme-icon-light {
-  display: none;
-}
-
-html.dark .theme-icon-dark {
+.theme-toggle-shell {
+  position: relative;
   display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.24rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-surface-hover) 92%, transparent), color-mix(in srgb, var(--color-surface) 88%, transparent)),
+    color-mix(in srgb, var(--color-background) 32%, transparent);
+  box-shadow:
+    0 14px 36px color-mix(in srgb, var(--color-foreground) 7%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 28%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--color-foreground) 6%, transparent);
+  backdrop-filter: blur(20px) saturate(1.16);
+  isolation: isolate;
+}
+
+.theme-toggle-shell::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-accent-light) 22%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, white 12%, transparent), transparent 48%);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.theme-toggle-option {
+  position: relative;
+  display: inline-flex;
+  min-width: 2.5rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0 0.78rem;
+  color: color-mix(in srgb, var(--color-muted) 90%, var(--color-foreground) 10%);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.66rem;
+  line-height: 1;
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+  z-index: 1;
+}
+
+.theme-toggle-option:hover {
+  color: color-mix(in srgb, var(--color-foreground) 82%, var(--color-muted) 18%);
+}
+
+.theme-toggle-option:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 55%, transparent);
+}
+
+.theme-toggle-option[data-active="true"] {
+  color: var(--color-foreground);
+}
+
+.theme-toggle-option__backdrop {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-background) 94%, transparent), color-mix(in srgb, var(--color-surface-hover) 90%, transparent)),
+    radial-gradient(circle at top, color-mix(in srgb, var(--color-accent-light) 18%, transparent), transparent 72%);
+  box-shadow:
+    0 10px 24px color-mix(in srgb, var(--color-foreground) 8%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 22%, transparent);
+  opacity: 0;
+  transform: scale(0.88);
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle-option[data-active="true"] .theme-toggle-option__backdrop {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.theme-toggle-option__content {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+}
+
+.theme-toggle-option__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--color-foreground) 4%, transparent);
+  color: currentColor;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-toggle-option[data-active="true"] .theme-toggle-option__icon {
+  border-color: color-mix(in srgb, var(--color-border) 68%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-background) 94%, transparent), color-mix(in srgb, var(--color-surface) 94%, transparent));
+}
+
+.theme-toggle-option:hover .theme-toggle-option__icon {
+  transform: translateY(-1px);
+}
+
+.theme-toggle-option__icon[data-mode="light"][data-active="true"] {
+  color: color-mix(in srgb, var(--color-accent-dark) 72%, var(--color-foreground) 28%);
+}
+
+.theme-toggle-option__icon[data-mode="dark"][data-active="true"] {
+  color: color-mix(in srgb, var(--color-accent) 65%, var(--color-foreground) 35%);
+}
+
+.theme-toggle-option__icon[data-mode="system"][data-active="true"][data-resolved="light"] {
+  color: color-mix(in srgb, var(--color-accent-dark) 70%, var(--color-foreground) 30%);
+}
+
+.theme-toggle-option__icon[data-mode="system"][data-active="true"][data-resolved="dark"] {
+  color: color-mix(in srgb, var(--color-accent) 68%, var(--color-foreground) 32%);
+}
+
+@media (min-width: 640px) {
+  .theme-toggle-option {
+    min-width: 4.9rem;
+    padding-inline: 0.92rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .theme-toggle-shell {
+    gap: 0.14rem;
+    padding: 0.22rem;
+  }
+
+  .theme-toggle-option {
+    padding-inline: 0.54rem;
+  }
 }
 
 /* ─── Reduced motion ─── */

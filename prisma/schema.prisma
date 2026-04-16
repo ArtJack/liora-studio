@@ -35,8 +35,16 @@ model Product {
   weight       Float?
   inStock      Boolean        @default(true)
   featured     Boolean        @default(false)
+  views        ProductView[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
+}
+
+model ProductView {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  viewedAt  DateTime @default(now())
 }
 
 model Offer {

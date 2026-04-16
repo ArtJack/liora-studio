@@ -24,8 +24,8 @@ export function ProductCard({ slug, name, price, comparePrice, image, category }
       href={`/product/${slug}`}
       className="group block h-full rounded-[30px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
     >
-      <div className="surface-panel flex h-full flex-col overflow-hidden rounded-[30px] p-2">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-[24px] bg-surface">
+      <div className="surface-panel flex h-full flex-col overflow-hidden rounded-[24px] p-1.5 sm:rounded-[30px] sm:p-2">
+        <div className="relative aspect-[1/1.08] overflow-hidden rounded-[20px] bg-surface sm:aspect-[3/4] sm:rounded-[24px]">
           {showImage ? (
             <Image
               src={image!}
@@ -49,20 +49,20 @@ export function ProductCard({ slug, name, price, comparePrice, image, category }
             </span>
           </div>
         </div>
-        <div className="min-w-0 px-2 pb-3.5 pt-4">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-muted">{category}</p>
-          <h3 className="font-display mt-2 line-clamp-2 text-[18px] leading-[1.22] text-pretty transition-colors group-hover:text-accent">
+        <div className="min-w-0 px-1.5 pb-2 pt-2.5 sm:px-2 sm:pb-3.5 sm:pt-4">
+          <p className="hidden text-[11px] uppercase tracking-[0.24em] text-muted sm:block">{category}</p>
+          <h3 className="font-display mt-1 line-clamp-2 text-[15px] leading-[1.16] text-pretty transition-colors group-hover:text-accent sm:mt-2 sm:text-[18px] sm:leading-[1.22]">
             {name}
           </h3>
-          <div className="mt-3 flex items-center gap-2 text-[15px] font-medium [font-variant-numeric:tabular-nums]">
+          <div className="mt-1.5 flex items-center gap-2 text-[14px] font-medium [font-variant-numeric:tabular-nums] sm:mt-3 sm:text-[15px]">
             <p>${price.toLocaleString()}</p>
             {comparePrice && comparePrice > price && (
-              <p className="text-sm font-normal text-muted line-through">
+              <p className="text-[13px] font-normal text-muted line-through sm:text-sm">
                 ${comparePrice.toLocaleString()}
               </p>
             )}
           </div>
-          <div className="mt-4 flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-muted">
+          <div className="mt-4 hidden items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-muted sm:flex">
             <ShoppingBag size={12} aria-hidden="true" />
             View Details
           </div>

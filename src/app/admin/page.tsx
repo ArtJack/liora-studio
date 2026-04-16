@@ -4,90 +4,120 @@ import { prisma } from "@/lib/db";
 import Link from "next/link";
 import {
   Package,
-  Layers,
   Star,
   TriangleAlert,
   ArrowUpRight,
-  Sparkles,
-  MessageSquare,
+  Eye,
 } from "lucide-react";
 
 export default async function AdminDashboard() {
-  const [products, categories, pendingOffers] = await Promise.all([
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const sevenDaysAgo = new Date(todayStart);
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+
+  const [products, viewsRaw, todayViews] = await Promise.all([
     prisma.product.findMany({
-      include: { category: true, images: { orderBy: { position: "asc" }, take: 1 } },
-      orderBy: { createdAt: "desc" },
+      include: { category: true },
     }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
-    prisma.offer.count({ where: { status: "pending" } }),
+    prisma.productView.findMany({
+      where: { viewedAt: { gte: sevenDaysAgo } },
+      select: { productId: true, viewedAt: true },
+    }),
+    prisma.productView.count({
+      where: { viewedAt: { gte: todayStart } },
+    }),
   ]);
 
   const totalProducts = products.length;
-  const totalCategories = categories.length;
-  const featuredCount = products.filter((product) => product.featured).length;
-  const outOfStock = products.filter((product) => !product.inStock).length;
-  const inventoryValue = products.reduce((sum, product) => sum + product.price, 0);
-  const averagePrice = totalProducts ? inventoryValue / totalProducts : 0;
+  const featuredCount = products.filter((p) => p.featured).length;
+  const outOfStock = products.filter((p) => !p.inStock).length;
+  const inventoryValue = products.reduce((sum, p) => sum + p.price, 0);
 
-  const categoryBreakdown = categories.map((category) => {
-    const count = products.filter((product) => product.categoryId === category.id).length;
-    return {
-      name: category.name,
-      count,
-      share: totalProducts ? (count / totalProducts) * 100 : 0,
-    };
-  });
+  // --- 7-day chart data ---
+  const dayLabels: string[] = [];
+  const dayCounts: number[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(todayStart);
+    d.setDate(d.getDate() - i);
+    const nextD = new Date(d);
+    nextD.setDate(nextD.getDate() + 1);
+    const count = viewsRaw.filter((v) => {
+      const t = new Date(v.viewedAt);
+      return t >= d && t < nextD;
+    }).length;
+    dayLabels.push(d.toLocaleDateString("en-US", { weekday: "short" }));
+    dayCounts.push(count);
+  }
+  const maxDayCount = Math.max(...dayCounts, 1);
 
-  const recentProducts = products.slice(0, 5);
+  // --- Top 5 most viewed products ---
+  const viewCountMap = new Map<string, number>();
+  for (const v of viewsRaw) {
+    viewCountMap.set(v.productId, (viewCountMap.get(v.productId) ?? 0) + 1);
+  }
+  const topProducts = [...viewCountMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([productId, count]) => {
+      const product = products.find((p) => p.id === productId);
+      return { name: product?.name ?? "Unknown", count };
+    });
+  const maxTopCount = topProducts.length > 0 ? topProducts[0].count : 1;
+
+  // --- Views by category ---
+  const categoryViewMap = new Map<string, number>();
+  for (const v of viewsRaw) {
+    const product = products.find((p) => p.id === v.productId);
+    if (product) {
+      const catName = product.category.name;
+      categoryViewMap.set(catName, (categoryViewMap.get(catName) ?? 0) + 1);
+    }
+  }
+  const categoryViews = [...categoryViewMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, count]) => ({ name, count }));
+  const maxCatCount = categoryViews.length > 0 ? categoryViews[0].count : 1;
+
+  const totalWeekViews = viewsRaw.length;
 
   const stats = [
     {
-      label: "Total Products",
+      label: "Products",
       value: totalProducts.toLocaleString(),
-      detail: "live in the catalog",
+      detail: "live in catalog",
       icon: Package,
       accent: "text-sky-600",
     },
     {
-      label: "Categories",
-      value: totalCategories.toLocaleString(),
-      detail: "active collection groups",
-      icon: Layers,
-      accent: "text-violet-600",
-    },
-    {
       label: "Featured",
       value: featuredCount.toLocaleString(),
-      detail: "currently elevated on storefront",
+      detail: "on storefront",
       icon: Star,
       accent: "text-amber-600",
     },
     {
       label: "Out of Stock",
       value: outOfStock.toLocaleString(),
-      detail: "need attention soon",
+      detail: "need attention",
       icon: TriangleAlert,
       accent: "text-rose-600",
     },
     {
-      label: "Pending Offers",
-      value: pendingOffers.toLocaleString(),
-      detail: "awaiting your response",
-      icon: MessageSquare,
-      accent: "text-cyan-600",
+      label: "Today's Views",
+      value: todayViews.toLocaleString(),
+      detail: "product page visits",
+      icon: Eye,
+      accent: "text-emerald-600",
     },
   ];
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.24em] text-muted">Admin Overview</p>
-          <h1 className="mt-3 font-display text-5xl leading-none text-foreground">Dashboard</h1>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-muted">
-            Track collection health, merchandising balance, and the products most likely to
-            need action without digging through tables first.
-          </p>
+          <h1 className="mt-2 font-display text-4xl leading-none text-foreground sm:text-5xl">Dashboard</h1>
         </div>
         <Link
           href="/admin/products/new"
@@ -98,107 +128,125 @@ export default async function AdminDashboard() {
         </Link>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {/* Stat cards */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="surface-panel rounded-[28px] p-6">
+          <div key={stat.label} className="surface-panel rounded-[24px] p-5 sm:rounded-[28px] sm:p-6">
             <div className="flex items-center justify-between">
-              <span className="text-xs uppercase tracking-[0.2em] text-muted">{stat.label}</span>
-              <stat.icon size={18} className={stat.accent} />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-muted sm:text-xs">{stat.label}</span>
+              <stat.icon size={16} className={stat.accent} />
             </div>
-            <p className="mt-5 font-display text-5xl leading-none text-foreground">{stat.value}</p>
-            <p className="mt-3 text-sm text-muted">{stat.detail}</p>
+            <p className="mt-4 font-display text-3xl leading-none text-foreground sm:mt-5 sm:text-5xl">{stat.value}</p>
+            <p className="mt-2 text-xs text-muted sm:mt-3 sm:text-sm">{stat.detail}</p>
           </div>
         ))}
       </div>
 
+      {/* Charts row */}
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <div className="surface-panel rounded-[32px] p-6 sm:p-8">
+        {/* 7-Day Views Chart */}
+        <div className="surface-panel rounded-[28px] p-5 sm:rounded-[32px] sm:p-8">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-muted">Category Balance</p>
-              <h2 className="font-display mt-3 text-3xl text-foreground">Assortment spread</h2>
+              <p className="text-xs uppercase tracking-[0.22em] text-muted">Weekly Traffic</p>
+              <h2 className="font-display mt-2 text-2xl text-foreground sm:mt-3 sm:text-3xl">
+                {totalWeekViews} views
+              </h2>
             </div>
-            <div className="rounded-full border border-border/70 bg-background/35 px-4 py-2 text-xs uppercase tracking-[0.16em] text-muted">
-              {totalProducts} products tracked
+            <div className="rounded-full border border-border/70 bg-background/35 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-muted sm:px-4 sm:py-2 sm:text-xs">
+              Last 7 days
             </div>
           </div>
 
-          <div className="mt-8 space-y-5">
-            {categoryBreakdown.map((category) => (
-              <div key={category.name} className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-foreground">{category.name}</span>
-                  <span className="text-muted">
-                    {category.count} product{category.count === 1 ? "" : "s"}
-                  </span>
-                </div>
-                <div className="h-3 overflow-hidden rounded-full bg-background/60">
+          <div className="mt-8 flex items-end gap-2 sm:gap-3" style={{ height: "160px" }}>
+            {dayCounts.map((count, i) => (
+              <div key={dayLabels[i]} className="flex flex-1 flex-col items-center gap-2">
+                <div className="w-full">
                   <div
-                    className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-accent),var(--color-accent-light))]"
-                    style={{ width: `${Math.max(category.share, category.count ? 10 : 0)}%` }}
+                    className="mx-auto w-full max-w-[40px] rounded-t-lg bg-[linear-gradient(180deg,var(--color-accent),var(--color-accent-light))] transition-all"
+                    style={{
+                      height: `${Math.max((count / maxDayCount) * 140, count > 0 ? 8 : 2)}px`,
+                    }}
                   />
                 </div>
+                <span className="text-[10px] uppercase tracking-wide text-muted">{dayLabels[i]}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="grid gap-6">
-          <div className="surface-panel rounded-[32px] p-6 sm:p-8">
-            <p className="text-xs uppercase tracking-[0.22em] text-muted">Merchandising Pulse</p>
-            <div className="mt-7 grid grid-cols-2 gap-4">
-              <div className="rounded-[24px] border border-border/70 bg-background/35 p-5">
-                <p className="text-[11px] uppercase tracking-[0.2em] text-muted">Inventory Value</p>
-                <p className="mt-3 font-display text-4xl text-foreground">
-                  ${inventoryValue.toLocaleString()}
-                </p>
-              </div>
-              <div className="rounded-[24px] border border-border/70 bg-background/35 p-5">
-                <p className="text-[11px] uppercase tracking-[0.2em] text-muted">Average Price</p>
-                <p className="mt-3 font-display text-4xl text-foreground">
-                  ${Math.round(averagePrice).toLocaleString()}
-                </p>
-              </div>
+        {/* Inventory snapshot */}
+        <div className="surface-panel rounded-[28px] p-5 sm:rounded-[32px] sm:p-8">
+          <p className="text-xs uppercase tracking-[0.22em] text-muted">Inventory</p>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="rounded-[20px] border border-border/70 bg-background/35 p-4 sm:rounded-[24px] sm:p-5">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">Total Value</p>
+              <p className="mt-2 font-display text-2xl text-foreground sm:mt-3 sm:text-4xl">
+                ${inventoryValue.toLocaleString()}
+              </p>
             </div>
-            <div className="mt-6 rounded-[24px] border border-border/70 bg-background/25 p-5">
-              <div className="flex items-center gap-2 text-accent">
-                <Sparkles size={16} />
-                <p className="text-xs uppercase tracking-[0.2em]">Recommendation</p>
-              </div>
-              <p className="mt-3 text-sm leading-7 text-muted">
-                {outOfStock > 0
-                  ? "A few products are out of stock. Refresh those listings or remove them from featured placements to keep the storefront tight."
-                  : "Inventory coverage looks healthy. This is a good moment to refresh featured picks or add a new editorial drop."}
+            <div className="rounded-[20px] border border-border/70 bg-background/35 p-4 sm:rounded-[24px] sm:p-5">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-muted sm:text-[11px]">Avg Price</p>
+              <p className="mt-2 font-display text-2xl text-foreground sm:mt-3 sm:text-4xl">
+                ${totalProducts ? Math.round(inventoryValue / totalProducts).toLocaleString() : 0}
               </p>
             </div>
           </div>
 
-          <div className="surface-panel rounded-[32px] p-6 sm:p-8">
-            <p className="text-xs uppercase tracking-[0.22em] text-muted">Recent Products</p>
-            <div className="mt-6 space-y-4">
-              {recentProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between gap-4 rounded-[24px] border border-border/70 bg-background/25 px-4 py-4"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-foreground">{product.name}</p>
-                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted">
-                      {product.category.name}
-                    </p>
+          {/* Views by category */}
+          {categoryViews.length > 0 && (
+            <div className="mt-6">
+              <p className="text-xs uppercase tracking-[0.22em] text-muted">Views by Category</p>
+              <div className="mt-4 space-y-3">
+                {categoryViews.map((cat) => (
+                  <div key={cat.name} className="space-y-1.5">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-foreground">{cat.name}</span>
+                      <span className="text-xs text-muted">{cat.count}</span>
+                    </div>
+                    <div className="h-2.5 overflow-hidden rounded-full bg-background/60">
+                      <div
+                        className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-accent),var(--color-accent-light))]"
+                        style={{ width: `${Math.max((cat.count / maxCatCount) * 100, 8)}%` }}
+                      />
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm text-foreground">${product.price.toLocaleString()}</p>
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-muted">
-                      {product.inStock ? "In stock" : "Out of stock"}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
+
+      {/* Top viewed products */}
+      {topProducts.length > 0 && (
+        <div className="surface-panel rounded-[28px] p-5 sm:rounded-[32px] sm:p-8">
+          <p className="text-xs uppercase tracking-[0.22em] text-muted">Most Viewed Products</p>
+          <h2 className="font-display mt-2 text-2xl text-foreground sm:mt-3 sm:text-3xl">Top 5 this week</h2>
+          <div className="mt-6 space-y-4">
+            {topProducts.map((item, i) => (
+              <div
+                key={item.name}
+                className="flex items-center gap-4 rounded-[20px] border border-border/70 bg-background/25 px-4 py-3 sm:rounded-[24px] sm:px-5 sm:py-4"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-xs font-medium text-accent">
+                  {i + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-foreground">{item.name}</p>
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-background/60">
+                    <div
+                      className="h-full rounded-full bg-accent"
+                      style={{ width: `${(item.count / maxTopCount) * 100}%` }}
+                    />
+                  </div>
+                </div>
+                <span className="text-sm tabular-nums text-muted">{item.count} views</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,41 +1,42 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
-import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { ProductGallery } from "./gallery";
 import { AddToCartButton } from "./add-to-cart";
 // import { MakeOfferForm } from "./make-offer-form";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
+import { ViewTracker } from "./view-tracker";
+import { getProductPageData, getRelatedProducts } from "@/lib/storefront-data";
+import { prisma } from "@/lib/db";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    select: { slug: true },
+  });
+
+  return products.map((product) => ({ slug: product.slug }));
+}
+
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
 
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: {
-      images: { orderBy: { position: "asc" } },
-      category: true,
-    },
-  });
+  const product = await getProductPageData(slug);
 
   if (!product) notFound();
 
   const sizes = product.sizes ? product.sizes.split(",").map((s) => s.trim()) : [];
   const colors = product.colors ? product.colors.split(",").map((c) => c.trim()) : [];
 
-  const relatedProducts = await prisma.product.findMany({
-    where: { categoryId: product.categoryId, id: { not: product.id } },
-    include: { images: { orderBy: { position: "asc" }, take: 1 }, category: true },
-    take: 4,
-  });
+  const relatedProducts = await getRelatedProducts(product.categoryId, product.id);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <ViewTracker productId={product.id} />
       <nav className="mb-8 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-muted sm:text-xs">
         <Link href="/" className="hover:text-foreground">Home</Link>
         <span>/</span>
