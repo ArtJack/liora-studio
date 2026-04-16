@@ -7,21 +7,16 @@ const PRODUCT_REVALIDATE_SECONDS = 60;
 
 export const getHomePageData = unstable_cache(
   async () => {
-    const [featuredProducts, recentProducts, totalProducts] = await Promise.all([
+    const [featuredProducts, totalProducts] = await Promise.all([
       prisma.product.findMany({
         where: { featured: true },
         include: { images: { orderBy: { position: "asc" }, take: 1 }, category: true },
         take: 8,
       }),
-      prisma.product.findMany({
-        include: { images: { orderBy: { position: "asc" }, take: 1 }, category: true },
-        orderBy: { updatedAt: "desc" },
-        take: 4,
-      }),
       prisma.product.count(),
     ]);
 
-    return { featuredProducts, recentProducts, totalProducts };
+    return { featuredProducts, totalProducts };
   },
   ["storefront-home"],
   { revalidate: STOREFRONT_REVALIDATE_SECONDS }

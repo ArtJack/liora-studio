@@ -38,14 +38,13 @@ const silhouettes = {
       <circle cx="50" cy="54" r="7" fill="white" opacity="0.4"/>
     </g>
   ),
-  anklets: (
+  "mystery box": (
     <g opacity="0.12">
-      <path d="M26 58 C36 72 64 72 74 58" stroke="currentColor" strokeWidth="5" fill="none"/>
-      <circle cx="38" cy="62" r="3" fill="currentColor"/>
-      <circle cx="50" cy="66" r="3.5" fill="currentColor"/>
-      <circle cx="62" cy="62" r="3" fill="currentColor"/>
-      <path d="M50 66 L50 78" stroke="currentColor" strokeWidth="2.5"/>
-      <circle cx="50" cy="82" r="4.5" fill="currentColor"/>
+      <rect x="30" y="34" width="40" height="32" rx="4" stroke="currentColor" strokeWidth="4" fill="none"/>
+      <path d="M30 44 L70 44" stroke="currentColor" strokeWidth="3"/>
+      <path d="M50 34 L50 66" stroke="currentColor" strokeWidth="3"/>
+      <path d="M50 28 C44 18 56 18 50 28" fill="currentColor" opacity="0.6"/>
+      <circle cx="50" cy="44" r="4" fill="currentColor"/>
     </g>
   ),
   jewelry: (
@@ -65,7 +64,7 @@ const palettes: Record<string, { from: string; via: string; to: string; accent: 
   necklaces: { from: "#eee3d9", via: "#f8f1ea", to: "#e4d6cb", accent: "#a07c5f" },
   bracelets: { from: "#e6ddd4", via: "#f3ece5", to: "#dbcdc0", accent: "#8d7764" },
   brooches: { from: "#eee1dc", via: "#f9efea", to: "#e1d2ca", accent: "#9c776e" },
-  anklets: { from: "#ece2d8", via: "#f8efe7", to: "#ddd0c4", accent: "#8d7967" },
+  "mystery box": { from: "#e8dbe4", via: "#f5edf2", to: "#ddd0d8", accent: "#8d6781" },
   jewelry: { from: "#e8e2da", via: "#f6f0e8", to: "#e0d8ce", accent: "#8a7d6d" },
 };
 
@@ -75,7 +74,7 @@ const darkPalettes: Record<string, { from: string; via: string; to: string; acce
   necklaces: { from: "#2a211a", via: "#1f1813", to: "#251d17", accent: "#c19d7d" },
   bracelets: { from: "#261f1a", via: "#1c1713", to: "#221b16", accent: "#b69b82" },
   brooches: { from: "#2a1f1c", via: "#1f1715", to: "#241b18", accent: "#c19a8d" },
-  anklets: { from: "#251f19", via: "#1c1714", to: "#221c17", accent: "#af9982" },
+  "mystery box": { from: "#251f23", via: "#1c1419", to: "#221c20", accent: "#af82a0" },
   jewelry: { from: "#28241e", via: "#1e1c16", to: "#24201a", accent: "#a09080" },
 };
 

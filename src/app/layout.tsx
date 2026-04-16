@@ -30,10 +30,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.liorastudiousa.com"),
   title: "LIORA STUDIO USA — Curated Jewelry",
   description:
-    "Shop curated plated jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets at LIORA STUDIO.",
+    "Shop curated plated jewelry — rings, earrings, necklaces, bracelets, and brooches at LIORA STUDIO.",
   openGraph: {
     title: "LIORA STUDIO",
-    description: "Curated plated jewelry — rings, earrings, necklaces, bracelets, brooches, and anklets.",
+    description: "Curated plated jewelry — rings, earrings, necklaces, bracelets, and brooches.",
     url: "https://www.liorastudiousa.com",
     siteName: "LIORA STUDIO",
     images: [
