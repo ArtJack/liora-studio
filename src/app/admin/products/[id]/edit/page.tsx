@@ -6,6 +6,7 @@ import { ProductForm } from "../../product-form";
 import { updateProduct } from "../../actions";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { DeleteSection } from "./delete-section";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -64,6 +65,7 @@ export default async function EditProductPage({ params }: Props) {
         action={boundAction}
         submitLabel="Update Product"
       />
+      <DeleteSection productId={id} productName={product.name} />
     </div>
   );
 }
