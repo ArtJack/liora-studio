@@ -16,6 +16,7 @@ const navLinks = [
   { href: "/shop?category=bracelets", label: "Bracelets" },
   { href: "/shop?category=brooches", label: "Brooches" },
   { href: "/shop?category=anklets", label: "Anklets" },
+  { href: "/shop?category=gift-sets", label: "Gift Sets" },
 ];
 
 export function Header() {

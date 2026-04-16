@@ -49,6 +49,12 @@ async function main() {
     create: { name: "Anklets", slug: "anklets", description: "Delicate ankle jewelry" },
   });
 
+  const giftSets = await prisma.category.upsert({
+    where: { slug: "gift-sets" },
+    update: {},
+    create: { name: "Gift Sets", slug: "gift-sets", description: "Mystery bags, curated boxes, and special bundles" },
+  });
+
   const products = [
     // --- Rings ---
     {
@@ -279,6 +285,32 @@ async function main() {
       gemstone: "Cubic Zirconia",
       weight: 4.0,
       featured: false,
+      inStock: true,
+    },
+
+    // --- Gift Sets ---
+    {
+      name: "Jewelry Mystery Bag",
+      slug: "jewelry-mystery-bag",
+      description: "A surprise selection of plated jewelry chosen from current LIORA STUDIO pieces. Expect a mix of polished staples and statement accents, packed for gifting or self-treating.",
+      price: 78,
+      comparePrice: 120,
+      categoryId: giftSets.id,
+      material: "Mixed Plated Finishes",
+      gemstone: "Varied Decorative Stones",
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Curated Jewelry Gift Box",
+      slug: "curated-jewelry-gift-box",
+      description: "A higher-value gift set with multiple plated pieces selected to wear together. Designed as an easy elevated present with variety, polish, and gift-ready presentation.",
+      price: 222,
+      comparePrice: 320,
+      categoryId: giftSets.id,
+      material: "Mixed Plated Finishes",
+      gemstone: "Varied Decorative Stones",
+      featured: true,
       inStock: true,
     },
   ];

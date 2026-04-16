@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/components/cart-context";
-import { Check } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 
 type Props = {
   product: { id: string; name: string; price: number; image: string };
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function AddToCartButton({ product, sizes, colors, inStock }: Props) {
-  const { addItem } = useCart();
+  const { addItem, setIsOpen } = useCart();
   const [selectedSize, setSelectedSize] = useState(sizes[0] ?? "");
   const [selectedColor, setSelectedColor] = useState("");
   const [added, setAdded] = useState(false);
@@ -67,28 +67,43 @@ export function AddToCartButton({ product, sizes, colors, inStock }: Props) {
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={handleAdd}
-        disabled={!inStock}
-        className={`flex min-h-13 w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-sm uppercase tracking-[0.2em] ${
-          !inStock
-            ? "cursor-not-allowed bg-border text-muted"
-            : added
-              ? "bg-green-800 text-white"
-              : "bg-foreground text-background shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-foreground/92"
-        }`}
-      >
-        {!inStock ? (
-          "Out of Stock"
-        ) : added ? (
-          <>
-            <Check size={16} /> Added to Cart
-          </>
-        ) : (
-          "Add to Cart"
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={handleAdd}
+          disabled={!inStock}
+          className={`flex min-h-13 flex-1 items-center justify-center gap-2 rounded-full px-5 py-4 text-sm uppercase tracking-[0.2em] ${
+            !inStock
+              ? "cursor-not-allowed bg-border text-muted"
+              : added
+                ? "bg-green-800 text-white"
+                : "bg-foreground text-background shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-foreground/92"
+          }`}
+        >
+          {!inStock ? (
+            "Out of Stock"
+          ) : added ? (
+            <>
+              <Check size={16} /> Added
+            </>
+          ) : (
+            "Add to Cart"
+          )}
+        </button>
+        {inStock && (
+          <button
+            type="button"
+            onClick={() => {
+              handleAdd();
+              setIsOpen(true);
+            }}
+            className="flex min-h-13 items-center justify-center gap-2 rounded-full border border-accent bg-accent/10 px-6 py-4 text-sm uppercase tracking-[0.2em] text-accent hover:-translate-y-0.5 hover:bg-accent/20"
+          >
+            <Zap size={15} />
+            Buy Now
+          </button>
         )}
-      </button>
+      </div>
     </div>
   );
 }

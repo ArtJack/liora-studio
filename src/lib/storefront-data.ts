@@ -67,6 +67,7 @@ export const getProductPageData = unstable_cache(
       include: {
         images: { orderBy: { position: "asc" } },
         category: true,
+        reviews: { orderBy: { createdAt: "desc" } },
       },
     }),
   ["storefront-product"],

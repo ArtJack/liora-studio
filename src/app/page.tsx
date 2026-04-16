@@ -14,6 +14,7 @@ const categories = [
   { name: "Bracelets", slug: "bracelets", description: "Wrist adornments", image: "/images/products/diamond-tennis-bracelet.jpg" },
   { name: "Brooches", slug: "brooches", description: "Timeless accents", image: "/images/products/crystal-flower-brooch.jpg" },
   { name: "Anklets", slug: "anklets", description: "Subtle charm", image: "/images/products/layered-crystal-anklet.jpg" },
+  { name: "Gift Sets", slug: "gift-sets", description: "Curated surprises", image: "/images/products/jewelry-mystery-bag.jpg" },
 ];
 
 const editorialMoments = [
