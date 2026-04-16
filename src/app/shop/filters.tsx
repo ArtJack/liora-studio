@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type Props = {
@@ -12,21 +13,27 @@ export function ShopFilters({ categories, activeCategory, activeSort }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  function updateParam(key: string, value: string | null) {
+  function getHref(key: string, value: string | null) {
     const params = new URLSearchParams(searchParams.toString());
     if (value) {
       params.set(key, value);
     } else {
       params.delete(key);
     }
-    router.push(`/shop?${params.toString()}`);
+
+    const nextQuery = params.toString();
+    return nextQuery ? `/shop?${nextQuery}` : "/shop";
+  }
+
+  function updateParam(key: string, value: string | null) {
+    router.push(getHref(key, value));
   }
 
   return (
     <div className="surface-panel flex flex-col gap-3 rounded-[28px] px-4 py-4 sm:px-5 lg:flex-row lg:flex-wrap lg:items-center">
-      <button
-        type="button"
-        onClick={() => updateParam("category", null)}
+      <Link
+        href={getHref("category", null)}
+        scroll={false}
         className={`w-full rounded-full border px-4 py-2.5 text-xs uppercase tracking-[0.18em] sm:w-auto ${
           !activeCategory
             ? "border-foreground bg-foreground text-background"
@@ -34,12 +41,12 @@ export function ShopFilters({ categories, activeCategory, activeSort }: Props) {
         }`}
       >
         All
-      </button>
+      </Link>
       {categories.map((cat) => (
-        <button
+        <Link
           key={cat.slug}
-          type="button"
-          onClick={() => updateParam("category", cat.slug)}
+          href={getHref("category", cat.slug)}
+          scroll={false}
           className={`w-full rounded-full border px-4 py-2.5 text-xs uppercase tracking-[0.18em] sm:w-auto ${
             activeCategory === cat.slug
               ? "border-foreground bg-foreground text-background"
@@ -47,7 +54,7 @@ export function ShopFilters({ categories, activeCategory, activeSort }: Props) {
           }`}
         >
           {cat.name}
-        </button>
+        </Link>
       ))}
 
       <div className="w-full lg:ml-auto lg:w-auto">

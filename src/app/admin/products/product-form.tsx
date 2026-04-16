@@ -128,7 +128,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 name="name"
                 defaultValue={product?.name}
                 required
-                className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                 placeholder="e.g. Classic Leather Tote"
               />
             </div>
@@ -142,7 +142,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 defaultValue={product?.description}
                 required
                 rows={5}
-                className="w-full resize-none rounded-[22px] border border-border bg-surface px-4 py-3 text-sm transition-colors focus:border-foreground focus:outline-none"
+                className="w-full resize-none rounded-[22px] border border-border bg-surface px-4 py-3 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                 placeholder="Describe the product..."
               />
             </div>
@@ -158,7 +158,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                   step="0.01"
                   defaultValue={product?.price}
                   required
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="0.00"
                 />
               </div>
@@ -171,7 +171,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                   type="number"
                   step="0.01"
                   defaultValue={product?.comparePrice ?? ""}
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="Original price (optional)"
                 />
               </div>
@@ -185,7 +185,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 name="categoryId"
                 defaultValue={product?.categoryId}
                 required
-                className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
               >
                 <option value="">Select category</option>
                 {categories.map((cat) => (
@@ -204,7 +204,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 <input
                   name="material"
                   defaultValue={product?.material ?? ""}
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="e.g. Gold-Plated Brass, Silver-Tone Plated Brass"
                 />
               </div>
@@ -215,7 +215,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 <input
                   name="gemstone"
                   defaultValue={product?.gemstone ?? ""}
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="e.g. Diamond, Pearl, None"
                 />
               </div>
@@ -231,7 +231,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                   type="number"
                   step="0.1"
                   defaultValue={product?.weight ?? ""}
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="0.0"
                 />
               </div>
@@ -242,7 +242,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 <input
                   name="sizes"
                   defaultValue={product?.sizes ?? ""}
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="5, 6, 7, 8, 9"
                 />
               </div>
@@ -253,7 +253,7 @@ export function ProductForm({ categories, product, action, submitLabel }: Props)
                 <input
                   name="colors"
                   defaultValue={product?.colors ?? ""}
-                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                  className="h-12 w-full rounded-2xl border border-border bg-surface px-4 text-base sm:text-sm transition-colors focus:border-foreground focus:outline-none"
                   placeholder="Gold, Silver, Rose Gold"
                 />
               </div>

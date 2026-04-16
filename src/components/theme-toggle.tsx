@@ -14,7 +14,7 @@ export function ThemeToggle() {
 
   return (
     <div
-      className="flex items-center gap-1 rounded-full border border-border/70 bg-surface/88 p-1 shadow-[0_12px_32px_rgba(15,23,42,0.08)] backdrop-blur-xl"
+      className="theme-toggle-shell"
       aria-label="Theme controls"
       role="group"
     >
@@ -29,17 +29,25 @@ export function ThemeToggle() {
             key={option.value}
             type="button"
             onClick={() => setThemePreference(option.value)}
-            className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-full px-3 text-[11px] uppercase tracking-[0.18em] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 ${
-              active
-                ? "bg-foreground text-background shadow-sm"
-                : "text-muted hover:bg-background/70 hover:text-foreground"
-            }`}
+            className="theme-toggle-option"
             aria-label={`Use ${option.label.toLowerCase()} theme`}
             aria-pressed={active}
+            data-active={active}
             title={option.label}
           >
-            <Icon size={14} aria-hidden="true" />
-            <span className="hidden sm:inline">{option.label}</span>
+            <span className="theme-toggle-option__backdrop" aria-hidden="true" />
+            <span className="theme-toggle-option__content">
+              <span
+                className="theme-toggle-option__icon"
+                data-mode={option.value}
+                data-active={active}
+                data-resolved={option.value === "system" ? resolvedTheme : undefined}
+                aria-hidden="true"
+              >
+                <Icon size={14} />
+              </span>
+              <span className="hidden sm:inline">{option.label}</span>
+            </span>
           </button>
         );
       })}

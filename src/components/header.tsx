@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, Moon, Sun } from "lucide-react";
 import { useCart } from "./cart-context";
 import { CartDrawer } from "./cart-drawer";
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
+import { useTheme } from "./theme-provider";
 
 const navLinks = [
   { href: "/shop", label: "Shop All" },
@@ -20,12 +21,13 @@ const navLinks = [
 export function Header() {
   const { totalItems, setIsOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-border/70 bg-surface/70 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-15 items-center justify-between gap-3 sm:h-16 lg:h-[4.75rem]">
+          <div className="grid h-15 grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:h-16 sm:items-center sm:justify-between lg:h-[4.75rem]">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 lg:hidden"
@@ -36,9 +38,9 @@ export function Header() {
 
             <Link
               href="/"
-              className="absolute left-1/2 -translate-x-1/2 text-center lg:static lg:translate-x-0"
+              className="min-w-0 text-center lg:static lg:translate-x-0"
             >
-              <h1 className="text-[15px] font-light tracking-[0.24em] text-foreground sm:text-xl sm:tracking-[0.32em] lg:text-[1.55rem]">
+              <h1 className="truncate px-2 text-[14px] font-light tracking-[0.2em] text-foreground sm:px-0 sm:text-xl sm:tracking-[0.32em] lg:text-[1.55rem]">
                 LIORA STUDIO
               </h1>
             </Link>
@@ -55,8 +57,18 @@ export function Header() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={toggleTheme}
+                className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 sm:hidden"
+                aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`}
+                title={resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
+              >
+                {resolvedTheme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+              </button>
+              <div className="hidden sm:block">
+                <ThemeToggle />
+              </div>
               <button
                 onClick={() => setIsOpen(true)}
                 className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
@@ -75,6 +87,9 @@ export function Header() {
 
         {mobileOpen && (
           <nav className="border-t border-border/70 bg-surface px-4 py-5 lg:hidden">
+            <div className="mb-4 flex justify-center">
+              <ThemeToggle />
+            </div>
             <div className="space-y-2">
               {navLinks.map((link) => (
                 <Link
