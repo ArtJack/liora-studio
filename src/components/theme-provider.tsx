@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, type ReactNode, useContext, useEffect, useState, useSyncExternalStore } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 
 type ThemePreference = "light" | "dark" | "system";
 type ResolvedTheme = "light" | "dark";
@@ -8,7 +8,6 @@ type ResolvedTheme = "light" | "dark";
 type ThemeContextValue = {
   themePreference: ThemePreference;
   resolvedTheme: ResolvedTheme;
-  mounted: boolean;
   setThemePreference: (theme: ThemePreference) => void;
   toggleTheme: () => void;
 };
@@ -51,26 +50,14 @@ function applyTheme(themePreference: ThemePreference, systemTheme: ResolvedTheme
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Start with safe server defaults to avoid hydration mismatch
-  const [mounted, setMounted] = useState(false);
-  const [themePreference, setThemePreferenceState] = useState<ThemePreference>("system");
-  const [systemTheme, setSystemTheme] = useState<ResolvedTheme>("light");
+  const [themePreference, setThemePreferenceState] = useState<ThemePreference>(getStoredThemePreference);
+  const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme);
 
   const resolvedTheme = resolveTheme(themePreference, systemTheme);
 
-  // Read actual values only after mount
   useEffect(() => {
-    const pref = getStoredThemePreference();
-    const sys = getSystemTheme();
-    setThemePreferenceState(pref);
-    setSystemTheme(sys);
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
     applyTheme(themePreference, systemTheme);
-  }, [themePreference, systemTheme, mounted]);
+  }, [themePreference, systemTheme]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -107,7 +94,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       value={{
         themePreference,
         resolvedTheme,
-        mounted,
         setThemePreference,
         toggleTheme,
       }}

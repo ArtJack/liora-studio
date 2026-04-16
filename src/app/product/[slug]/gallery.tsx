@@ -52,12 +52,13 @@ export function ProductGallery({ images, name }: Props) {
       </div>
 
       {images.length > 1 && (
-        <div className="flex gap-3">
+        <div className="flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {images.map((img, i) => (
             <button
               key={img.id}
+              type="button"
               onClick={() => setSelected(i)}
-              className={`relative h-20 w-16 overflow-hidden rounded-2xl border-2 ${
+              className={`relative h-20 w-16 shrink-0 overflow-hidden rounded-2xl border-2 ${
                 i === selected ? "border-foreground shadow-md" : "border-transparent hover:border-border"
               }`}
             >

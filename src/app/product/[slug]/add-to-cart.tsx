@@ -36,8 +36,9 @@ export function AddToCartButton({ product, sizes, colors, inStock }: Props) {
             {sizes.map((size) => (
               <button
                 key={size}
+                type="button"
                 onClick={() => setSelectedSize(size)}
-                className={`rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] ${
+                className={`min-w-[3rem] rounded-full border px-4 py-2.5 text-xs uppercase tracking-[0.18em] ${
                   selectedSize === size
                     ? "border-foreground bg-foreground text-background"
                     : "border-border text-muted hover:border-accent/60 hover:text-foreground"
@@ -67,9 +68,10 @@ export function AddToCartButton({ product, sizes, colors, inStock }: Props) {
       )}
 
       <button
+        type="button"
         onClick={handleAdd}
         disabled={!inStock}
-        className={`flex w-full items-center justify-center gap-2 rounded-full py-4 text-sm uppercase tracking-[0.2em] ${
+        className={`flex min-h-13 w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-sm uppercase tracking-[0.2em] ${
           !inStock
             ? "cursor-not-allowed bg-border text-muted"
             : added
@@ -81,10 +83,10 @@ export function AddToCartButton({ product, sizes, colors, inStock }: Props) {
           "Out of Stock"
         ) : added ? (
           <>
-            <Check size={16} /> Added to Bag
+            <Check size={16} /> Added to Cart
           </>
         ) : (
-          "Add to Bag"
+          "Add to Cart"
         )}
       </button>
     </div>

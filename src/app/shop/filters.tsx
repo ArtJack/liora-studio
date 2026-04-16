@@ -23,10 +23,11 @@ export function ShopFilters({ categories, activeCategory, activeSort }: Props) {
   }
 
   return (
-    <div className="surface-panel flex flex-wrap items-center gap-3 rounded-[28px] px-4 py-4 sm:px-5">
+    <div className="surface-panel flex flex-col gap-3 rounded-[28px] px-4 py-4 sm:px-5 lg:flex-row lg:flex-wrap lg:items-center">
       <button
+        type="button"
         onClick={() => updateParam("category", null)}
-        className={`rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] ${
+        className={`w-full rounded-full border px-4 py-2.5 text-xs uppercase tracking-[0.18em] sm:w-auto ${
           !activeCategory
             ? "border-foreground bg-foreground text-background"
             : "border-border text-muted hover:border-accent/60 hover:text-foreground"
@@ -37,8 +38,9 @@ export function ShopFilters({ categories, activeCategory, activeSort }: Props) {
       {categories.map((cat) => (
         <button
           key={cat.slug}
+          type="button"
           onClick={() => updateParam("category", cat.slug)}
-          className={`rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] ${
+          className={`w-full rounded-full border px-4 py-2.5 text-xs uppercase tracking-[0.18em] sm:w-auto ${
             activeCategory === cat.slug
               ? "border-foreground bg-foreground text-background"
               : "border-border text-muted hover:border-accent/60 hover:text-foreground"
@@ -48,11 +50,11 @@ export function ShopFilters({ categories, activeCategory, activeSort }: Props) {
         </button>
       ))}
 
-      <div className="ml-auto">
+      <div className="w-full lg:ml-auto lg:w-auto">
         <select
           value={activeSort ?? "newest"}
           onChange={(e) => updateParam("sort", e.target.value === "newest" ? null : e.target.value)}
-          className="rounded-full border border-border bg-background/50 px-4 py-2 text-xs uppercase tracking-[0.16em] text-muted focus:border-foreground focus:outline-none"
+          className="w-full rounded-full border border-border bg-background/50 px-4 py-2.5 text-xs uppercase tracking-[0.16em] text-muted focus:border-foreground focus:outline-none lg:min-w-[190px]"
         >
           <option value="newest">Newest</option>
           <option value="price-asc">Price: Low to High</option>

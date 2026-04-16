@@ -8,262 +8,285 @@ const adapter = new PrismaLibSql({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  // Create categories
-  const clothing = await prisma.category.upsert({
-    where: { slug: "clothing" },
+  // Clean up non-jewelry categories and products (optional, but requested "only jewelry")
+  await prisma.product.deleteMany({});
+  await prisma.category.deleteMany({});
+
+  // Create 6 jewelry categories
+  const rings = await prisma.category.upsert({
+    where: { slug: "rings" },
     update: {},
-    create: { name: "Clothing", slug: "clothing", description: "Luxury apparel" },
+    create: { name: "Rings", slug: "rings", description: "Elegant rings for every occasion" },
   });
 
-  const bags = await prisma.category.upsert({
-    where: { slug: "bags" },
+  const earrings = await prisma.category.upsert({
+    where: { slug: "earrings" },
     update: {},
-    create: { name: "Bags", slug: "bags", description: "Designer handbags" },
+    create: { name: "Earrings", slug: "earrings", description: "Statement and everyday earrings" },
   });
 
-  const shoes = await prisma.category.upsert({
-    where: { slug: "shoes" },
+  const brooches = await prisma.category.upsert({
+    where: { slug: "brooches" },
     update: {},
-    create: { name: "Shoes", slug: "shoes", description: "Artisan footwear" },
+    create: { name: "Brooches", slug: "brooches", description: "Timeless decorative brooches" },
   });
 
-  const jewelry = await prisma.category.upsert({
-    where: { slug: "jewelry" },
+  const necklaces = await prisma.category.upsert({
+    where: { slug: "necklaces" },
     update: {},
-    create: { name: "Jewelry", slug: "jewelry", description: "Fine jewelry" },
+    create: { name: "Necklaces", slug: "necklaces", description: "Chains, pendants, and chokers" },
+  });
+
+  const bracelets = await prisma.category.upsert({
+    where: { slug: "bracelets" },
+    update: {},
+    create: { name: "Bracelets", slug: "bracelets", description: "Bangles, cuffs, and chain bracelets" },
+  });
+
+  const anklets = await prisma.category.upsert({
+    where: { slug: "anklets" },
+    update: {},
+    create: { name: "Anklets", slug: "anklets", description: "Delicate ankle jewelry" },
   });
 
   const products = [
-    // Clothing
+    // --- Rings ---
     {
-      name: "Cashmere Oversized Sweater",
-      slug: "cashmere-oversized-sweater",
-      description: "Luxuriously soft pure cashmere sweater with a relaxed oversized silhouette. Perfect for layering or wearing on its own. Crafted from the finest Mongolian cashmere.",
-      price: 890,
-      comparePrice: 1200,
-      categoryId: clothing.id,
-      sizes: "XS, S, M, L, XL",
-      colors: "Ivory, Camel, Black, Charcoal",
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Silk Midi Dress",
-      slug: "silk-midi-dress",
-      description: "An elegant silk charmeuse midi dress with a subtle drape and fluid movement. Features delicate spaghetti straps and a cowl neckline. Made in Italy.",
-      price: 1450,
-      categoryId: clothing.id,
-      sizes: "XS, S, M, L",
-      colors: "Champagne, Black, Dusty Rose",
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Tailored Wool Blazer",
-      slug: "tailored-wool-blazer",
-      description: "Impeccably tailored double-breasted blazer in premium Italian wool. A timeless investment piece for any wardrobe. Gold-tone buttons with logo engraving.",
-      price: 1680,
-      categoryId: clothing.id,
-      sizes: "XS, S, M, L, XL",
-      colors: "Navy, Black, Cream",
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Leather Trench Coat",
-      slug: "leather-trench-coat",
-      description: "Statement leather trench coat in buttery-soft lambskin. Classic belted silhouette with modern proportions. Fully lined in silk.",
+      name: "Diamond Solitaire Engagement Ring",
+      slug: "diamond-solitaire-engagement-ring",
+      description: "Classic round brilliant solitaire on a white gold-tone plated band. Designed for a timeless bridal look with polished finish and statement sparkle.",
       price: 3200,
-      comparePrice: 3800,
-      categoryId: clothing.id,
-      sizes: "S, M, L",
-      colors: "Black, Cognac",
+      comparePrice: 4500,
+      categoryId: rings.id,
+      sizes: "5, 6, 7, 8, 9",
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond",
+      weight: 3.8,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Rose Gold Signet Ring",
+      slug: "rose-gold-signet-ring",
+      description: "Modern signet ring in polished rose gold-tone plating with a brushed face. A contemporary take on a timeless classic.",
+      price: 480,
+      categoryId: rings.id,
+      sizes: "5, 6, 7, 8, 9, 10",
+      material: "Rose Gold-Tone Plated Brass",
+      weight: 5.2,
+      featured: false,
+      inStock: true,
+    },
+    {
+      name: "Sapphire Halo Ring",
+      slug: "sapphire-halo-ring",
+      description: "Vivid blue sapphire-style center stone surrounded by a halo of micro-pavé crystals. Finished in a platinum-tone plated setting for high contrast shine.",
+      price: 2750,
+      categoryId: rings.id,
+      sizes: "5, 6, 7, 8",
+      material: "Platinum-Tone Plated Brass",
+      gemstone: "Sapphire-Style Stone, Crystal",
+      weight: 4.1,
       featured: true,
       inStock: true,
     },
 
-    // Bags
-    {
-      name: "Classic Leather Tote",
-      slug: "classic-leather-tote",
-      description: "Structured tote bag in pebbled calfskin leather. Spacious interior with zip pocket and magnetic closure. Handcrafted by Italian artisans.",
-      price: 1850,
-      categoryId: bags.id,
-      colors: "Black, Tan, Burgundy",
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Mini Chain Crossbody",
-      slug: "mini-chain-crossbody",
-      description: "Compact crossbody bag with signature gold chain strap. Quilted lambskin leather with logo clasp closure. Perfect for day to evening.",
-      price: 1290,
-      categoryId: bags.id,
-      colors: "Black, White, Rouge",
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Woven Clutch",
-      slug: "woven-clutch",
-      description: "Artisan-woven evening clutch in metallic leather strips. Features a hidden chain strap and satin-lined interior. A statement piece for special occasions.",
-      price: 980,
-      categoryId: bags.id,
-      colors: "Gold, Silver, Rose Gold",
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Suede Bucket Bag",
-      slug: "suede-bucket-bag",
-      description: "Relaxed bucket bag in luxurious Italian suede with leather drawstring closure. Includes a removable inner pouch. Casual luxury at its finest.",
-      price: 1150,
-      categoryId: bags.id,
-      colors: "Sand, Olive, Black",
-      featured: false,
-      inStock: true,
-    },
-
-    // Shoes
-    {
-      name: "Leather Pointed Pumps",
-      slug: "leather-pointed-pumps",
-      description: "Elegant pointed-toe pumps in smooth Italian leather. 85mm stiletto heel with leather sole. The quintessential luxury pump.",
-      price: 750,
-      categoryId: shoes.id,
-      sizes: "35, 36, 37, 38, 39, 40, 41",
-      colors: "Black, Nude, Red",
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Suede Ankle Boots",
-      slug: "suede-ankle-boots",
-      description: "Sleek ankle boots in premium suede with a sculpted 70mm block heel. Side zip closure and almond toe. Hand-finished in Portugal.",
-      price: 890,
-      categoryId: shoes.id,
-      sizes: "36, 37, 38, 39, 40, 41",
-      colors: "Black, Taupe, Chocolate",
-      featured: true,
-      inStock: true,
-    },
-    {
-      name: "Crystal Embellished Sandals",
-      slug: "crystal-embellished-sandals",
-      description: "Show-stopping evening sandals with hand-placed crystal embellishments. Delicate ankle strap and 100mm heel. Made in Italy.",
-      price: 1380,
-      categoryId: shoes.id,
-      sizes: "35, 36, 37, 38, 39, 40",
-      colors: "Silver, Gold, Black",
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Leather Loafers",
-      slug: "leather-loafers",
-      description: "Classic penny loafers reimagined in polished calfskin leather. Blake-stitched construction for flexibility and comfort. A versatile wardrobe staple.",
-      price: 650,
-      categoryId: shoes.id,
-      sizes: "36, 37, 38, 39, 40, 41, 42",
-      colors: "Black, Burgundy, Cream",
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Satin Slingback Pumps",
-      slug: "satin-slingback-pumps",
-      description: "Elegant satin slingback pumps with a pointed toe and structured kitten heel. A sophisticated choice for evening wear.",
-      price: 820,
-      categoryId: shoes.id,
-      sizes: "36, 37, 38, 39, 40, 41",
-      colors: "Emerald, Black, Champagne",
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Leather Chelsea Boots",
-      slug: "leather-chelsea-boots",
-      description: "Classic Chelsea boots in rich calf leather featuring elasticated side panels and a durable rubber stacked sole.",
-      price: 950,
-      categoryId: shoes.id,
-      sizes: "37, 38, 39, 40, 41, 42",
-      colors: "Black, Oxblood",
-      featured: true,
-      inStock: true,
-    },
-
-    // Jewelry
-    {
-      name: "Gold Chain Necklace",
-      slug: "gold-chain-necklace",
-      description: "18k gold-plated chain necklace with a modern link design. Adjustable length from 16 to 18 inches. Hypoallergenic and tarnish-resistant.",
-      price: 420,
-      categoryId: jewelry.id,
-      featured: true,
-      inStock: true,
-    },
+    // --- Earrings ---
     {
       name: "Diamond Stud Earrings",
       slug: "diamond-stud-earrings",
-      description: "Classic round brilliant diamond studs set in 18k white gold. Total carat weight 0.50ct, VS clarity, F color. Butterfly back closures.",
-      price: 2800,
-      categoryId: jewelry.id,
+      description: "Classic round brilliant-style studs in a white gold-tone plated setting. A polished everyday pair with bright, light-catching sparkle.",
+      price: 1850,
+      categoryId: earrings.id,
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond-Style Stone",
+      weight: 1.8,
       featured: true,
       inStock: true,
     },
     {
       name: "Pearl Drop Earrings",
       slug: "pearl-drop-earrings",
-      description: "Elegant South Sea pearl drop earrings with 18k gold vermeil hooks. 10mm pearls with exceptional lustre. A timeless addition to any collection.",
-      price: 580,
-      categoryId: jewelry.id,
+      description: "Lustrous pearl drops on polished gold-tone plated hooks. A soft, elegant silhouette designed for day-to-evening wear.",
+      price: 380,
+      categoryId: earrings.id,
+      material: "Gold-Tone Plated Brass",
+      gemstone: "Pearl",
+      weight: 2.4,
       featured: false,
-      inStock: true,
-    },
-    {
-      name: "Signet Ring",
-      slug: "signet-ring",
-      description: "Modern signet ring in solid 925 sterling silver with 18k gold plating. Subtle engraved logo detail. Available in multiple sizes.",
-      price: 340,
-      categoryId: jewelry.id,
-      sizes: "5, 6, 7, 8, 9",
-      featured: false,
-      inStock: true,
-    },
-    {
-      name: "Sapphire Pendant Necklace",
-      slug: "sapphire-pendant-necklace",
-      description: "A stunning 1.5 carat deep blue sapphire surrounded by a halo of micro-pave diamonds, set in 18k white gold.",
-      price: 1200,
-      categoryId: jewelry.id,
-      featured: true,
       inStock: true,
     },
     {
       name: "Gold Hoop Earrings",
       slug: "gold-hoop-earrings",
-      description: "Chunky yet lightweight 14k solid gold hoop earrings. The perfect everyday statement piece.",
-      price: 450,
-      categoryId: jewelry.id,
+      description: "Sleek gold-tone plated hoops with a polished finish. Lightweight, bright, and easy to wear all day.",
+      price: 320,
+      comparePrice: 420,
+      categoryId: earrings.id,
+      material: "Gold-Tone Plated Brass",
+      weight: 3.0,
+      featured: true,
+      inStock: true,
+    },
+
+    // --- Brooches ---
+    {
+      name: "Crystal Flower Brooch",
+      slug: "crystal-flower-brooch",
+      description: "Hand-set Swarovski crystals in a blooming flower design. Gold-plated brass base with secure pin clasp.",
+      price: 165,
+      categoryId: brooches.id,
+      material: "Gold-Plated Brass",
+      gemstone: "Crystal",
+      weight: 12.5,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Vintage Enamel Butterfly Brooch",
+      slug: "vintage-enamel-butterfly-brooch",
+      description: "Vibrant hand-painted enamel butterfly with rhinestone accents. A statement piece inspired by Art Nouveau design.",
+      price: 120,
+      categoryId: brooches.id,
+      material: "Silver-Tone Plated Brass",
+      gemstone: "Rhinestone",
+      weight: 8.3,
+      featured: false,
+      inStock: true,
+    },
+    {
+      name: "Pearl Cluster Brooch",
+      slug: "pearl-cluster-brooch",
+      description: "Elegant cluster of freshwater pearls and cubic zirconia on rhodium-plated brass. Perfect for bridal or formal wear.",
+      price: 210,
+      comparePrice: 280,
+      categoryId: brooches.id,
+      material: "Rhodium-Plated Brass",
+      gemstone: "Pearl, Cubic Zirconia",
+      weight: 15.0,
+      featured: false,
+      inStock: true,
+    },
+
+    // --- Necklaces ---
+    {
+      name: "Gold Chain Necklace",
+      slug: "gold-chain-necklace",
+      description: "Gold-tone plated chain necklace with a modern link design. Clean, polished, and easy to layer at 18 inches.",
+      price: 280,
+      categoryId: necklaces.id,
+      material: "Gold-Tone Plated Brass",
+      weight: 8.5,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Diamond Pendant Necklace",
+      slug: "diamond-pendant-necklace",
+      description: "Delicate pendant necklace on a white gold-tone plated chain. Designed to give everyday outfits a clean point of sparkle.",
+      price: 950,
+      categoryId: necklaces.id,
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond-Style Stone",
+      weight: 2.8,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Layered Pearl Choker",
+      slug: "layered-pearl-choker",
+      description: "Triple-strand pearl choker with a polished gold-tone plated clasp. A modern take on classic evening styling.",
+      price: 420,
+      comparePrice: 560,
+      categoryId: necklaces.id,
+      material: "Gold-Tone Plated Brass",
+      gemstone: "Pearl",
+      weight: 22.0,
+      featured: false,
+      inStock: true,
+    },
+
+    // --- Bracelets ---
+    {
+      name: "Tennis Bracelet",
+      slug: "diamond-tennis-bracelet",
+      description: "Classic tennis bracelet with bright stone detailing in a white gold-tone plated setting. Designed for high shine and formal polish.",
+      price: 4200,
+      comparePrice: 5500,
+      categoryId: bracelets.id,
+      sizes: "6.5, 7, 7.5",
+      material: "White Gold-Tone Plated Brass",
+      gemstone: "Diamond-Style Stone",
+      weight: 9.5,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Gold Cuff Bracelet",
+      slug: "gold-cuff-bracelet",
+      description: "Minimalist open cuff bracelet in hammered gold-tone plating. Adjustable, bold, and easy to style alone or layered.",
+      price: 680,
+      categoryId: bracelets.id,
+      material: "Gold-Tone Plated Brass",
+      weight: 18.0,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Beaded Gemstone Bracelet",
+      slug: "beaded-gemstone-bracelet",
+      description: "Stretch bracelet with turquoise- and lapis-tone beads plus silver-tone plated accents. An easy statement piece with soft color contrast.",
+      price: 95,
+      categoryId: bracelets.id,
+      material: "Silver-Tone Plated Brass",
+      gemstone: "Turquoise-Style Beads, Lapis-Style Beads",
+      weight: 14.0,
+      featured: false,
+      inStock: true,
+    },
+
+    // --- Anklets ---
+    {
+      name: "Dainty Gold Chain Anklet",
+      slug: "dainty-gold-chain-anklet",
+      description: "Delicate cable chain anklet in polished gold-tone plating. Adjustable and light on the ankle, perfect for warm-weather styling.",
+      price: 85,
+      categoryId: anklets.id,
+      material: "Gold-Tone Plated Brass",
+      weight: 1.5,
+      featured: true,
+      inStock: true,
+    },
+    {
+      name: "Silver Charm Anklet",
+      slug: "silver-charm-anklet",
+      description: "Sterling silver anklet with dangling star and moon charms. Adjustable 9-11 inches. Bohemian-chic style.",
+      price: 65,
+      categoryId: anklets.id,
+      material: "Sterling Silver",
+      weight: 3.2,
+      featured: false,
+      inStock: true,
+    },
+    {
+      name: "Layered Crystal Anklet",
+      slug: "layered-crystal-anklet",
+      description: "Double-strand anklet with hand-set cubic zirconia stations on gold-plated chain. Adjustable with 2-inch extender.",
+      price: 110,
+      comparePrice: 150,
+      categoryId: anklets.id,
+      material: "Gold Plated",
+      gemstone: "Cubic Zirconia",
+      weight: 4.0,
       featured: false,
       inStock: true,
     },
   ];
 
   for (const product of products) {
-    // Dynamically assign image URLs based on exact slugs we generated/downloaded
-    const ext = ["cashmere-oversized-sweater", "silk-midi-dress", "tailored-wool-blazer", "leather-trench-coat", "classic-leather-tote", "mini-chain-crossbody"].includes(product.slug) ? "png" : "jpg";
-    const imageUrl = `/images/products/${product.slug}.${ext}`;
-    
-    await prisma.product.upsert({
-      where: { slug: product.slug },
-      update: {
-        images: {
-          deleteMany: {},
-          create: [{ url: imageUrl, position: 0 }]
-        }
-      },
-      create: {
+    const imageUrl = `/images/products/${product.slug}.jpg`;
+    await prisma.product.create({
+      data: {
         ...product,
         images: {
           create: [{ url: imageUrl, position: 0 }]
@@ -272,7 +295,7 @@ async function main() {
     });
   }
 
-  console.log("Seed completed: 4 categories, 16 products");
+  console.log(`Seed completed: 6 categories, ${products.length} jewelry products seeded with unique images.`);
 }
 
 main()

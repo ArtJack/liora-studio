@@ -71,10 +71,11 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
   transition: background-color 220ms ease, color 220ms ease;
+  background-image:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-background) 92%, transparent) 0%, var(--color-background) 16rem),
+    radial-gradient(circle at top, color-mix(in srgb, var(--color-accent-light) 12%, transparent), transparent 30%);
 }
 
-/* ─── Modern layered background ─── */
-/* Layer 1: Animated mesh gradient blobs (fixed) */
 body::before {
   content: "";
   position: fixed;
@@ -82,21 +83,16 @@ body::before {
   pointer-events: none;
   z-index: -3;
   background:
-    /* Primary warm blob — top-left, slow drift */
-    radial-gradient(ellipse 55% 50% at 12% 8%, var(--theme-blob-1), transparent),
-    /* Secondary accent — top-right, offset */
-    radial-gradient(ellipse 40% 45% at 85% 12%, var(--theme-blob-2), transparent),
-    /* Soft center wash */
-    radial-gradient(ellipse 70% 40% at 50% 32%, var(--theme-blob-3), transparent),
-    /* Bottom corner accent */
-    radial-gradient(ellipse 45% 35% at 75% 80%, var(--theme-blob-4), transparent),
-    /* Deep bottom-left warmth */
-    radial-gradient(ellipse 50% 40% at 15% 75%, var(--theme-blob-2), transparent);
+    radial-gradient(ellipse 48% 42% at 12% 10%, var(--theme-blob-1), transparent 72%),
+    radial-gradient(ellipse 36% 36% at 88% 10%, var(--theme-blob-2), transparent 68%),
+    radial-gradient(ellipse 60% 34% at 50% 28%, var(--theme-blob-3), transparent 74%),
+    radial-gradient(ellipse 44% 30% at 80% 74%, var(--theme-blob-4), transparent 72%),
+    radial-gradient(ellipse 46% 34% at 20% 78%, var(--theme-blob-2), transparent 70%);
   animation: mesh-drift 28s ease-in-out infinite alternate;
   transform: translateZ(0);
+  opacity: 0.95;
 }
 
-/* Layer 2: Dot grid pattern + vignette (fixed) */
 body::after {
   content: "";
   position: fixed;
@@ -104,26 +100,33 @@ body::after {
   pointer-events: none;
   z-index: -2;
   background-image:
-    /* Dot grid */
     radial-gradient(circle at center, var(--theme-dot) 0.6px, transparent 0.6px),
-    /* Vignette — soft edge darkening */
-    radial-gradient(ellipse 85% 75% at 50% 45%, transparent 50%, var(--theme-vignette) 100%);
+    linear-gradient(180deg, transparent 0%, transparent 24%, color-mix(in srgb, var(--theme-vignette) 36%, transparent) 100%);
   background-size: 24px 24px, 100% 100%;
   background-position: 0 0, 0 0;
+  opacity: 0.85;
 }
 
-/* Layer 3: Page-level glow near top (scrolls with content) */
 .site-main::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 36rem;
+  height: 34rem;
   pointer-events: none;
   z-index: -1;
   background:
-    radial-gradient(ellipse 60% 45% at 50% 4%, color-mix(in srgb, var(--color-accent-light) 18%, transparent), transparent),
-    radial-gradient(ellipse 35% 30% at 20% 10%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent),
-    radial-gradient(ellipse 30% 30% at 78% 8%, color-mix(in srgb, var(--color-accent-dark) 6%, transparent), transparent);
+    radial-gradient(ellipse 55% 42% at 50% 6%, color-mix(in srgb, var(--color-accent-light) 16%, transparent), transparent 70%),
+    radial-gradient(ellipse 34% 24% at 20% 10%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 74%),
+    radial-gradient(ellipse 30% 24% at 78% 8%, color-mix(in srgb, var(--color-accent-dark) 6%, transparent), transparent 72%);
+}
+
+.site-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-background) 10%, transparent) 100%);
 }
 
 /* Subtle slow drift for the mesh blobs */
@@ -178,6 +181,19 @@ a, button, input, select, textarea {
 
 .site-main {
   isolation: isolate;
+}
+
+.content-band {
+  position: relative;
+  border-radius: 34px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 62%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 94%, transparent), color-mix(in srgb, var(--color-background) 84%, transparent)),
+    radial-gradient(circle at top, color-mix(in srgb, var(--color-accent-light) 10%, transparent), transparent 42%);
+  box-shadow:
+    0 16px 50px color-mix(in srgb, var(--color-foreground) 4%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 20%, transparent);
+  backdrop-filter: blur(20px) saturate(1.08);
 }
 
 .section-shell { position: relative; }
@@ -250,6 +266,18 @@ a, button, input, select, textarea {
 .theme-changing *::before,
 .theme-changing *::after {
   transition: none !important;
+}
+
+.theme-icon-dark {
+  display: none;
+}
+
+html.dark .theme-icon-light {
+  display: none;
+}
+
+html.dark .theme-icon-dark {
+  display: inline-flex;
 }
 
 /* ─── Reduced motion ─── */

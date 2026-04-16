@@ -60,7 +60,7 @@ export function Header() {
               <button
                 onClick={() => setIsOpen(true)}
                 className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-                aria-label="Open shopping bag"
+                aria-label="Open cart"
               >
                 <ShoppingBag size={18} />
                 {totalItems > 0 && (
