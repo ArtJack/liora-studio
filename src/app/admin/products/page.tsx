@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Plus, Pencil } from "lucide-react";
 import { DeleteProductButton } from "./delete-button";
 import { AdminProductThumb } from "./admin-product-thumb";
+import { SwipeableCard } from "./swipeable-card";
 
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({
@@ -31,13 +32,14 @@ export default async function AdminProductsPage() {
         </Link>
       </div>
 
-      {/* Mobile card layout */}
+      {/* Mobile card layout — swipe left to delete */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
         {products.map((product) => (
-          <Link
+          <SwipeableCard
             key={product.id}
+            productId={product.id}
+            productName={product.name}
             href={`/admin/products/${product.id}/edit`}
-            className="flex items-center gap-3 rounded-[20px] border border-border bg-surface p-3 transition-colors active:bg-surface-hover"
           >
             <div className="h-16 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-background relative">
               <AdminProductThumb
@@ -67,7 +69,7 @@ export default async function AdminProductsPage() {
                 )}
               </div>
             </div>
-          </Link>
+          </SwipeableCard>
         ))}
         {products.length === 0 && (
           <p className="py-12 text-center text-muted col-span-full">
