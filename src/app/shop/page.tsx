@@ -24,7 +24,7 @@ export default async function ShopPage({ searchParams }: Props) {
         </h1>
 
         <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">
-          Rings, earrings, necklaces, bracelets, brooches, and anklets — quality jewelry at honest prices.
+          Rings, earrings, necklaces, bracelets, brooches, anklets, and curated gift sets — quality jewelry at honest prices.
         </p>
 
         <div className="mt-8">

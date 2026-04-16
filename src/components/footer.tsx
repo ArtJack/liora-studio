@@ -16,7 +16,7 @@ export function Footer() {
             <div>
               <h3 className="mb-3 text-[11px] uppercase tracking-[0.22em] text-background/40 sm:mb-4 sm:text-xs sm:tracking-[0.2em]">Shop</h3>
               <ul className="space-y-2 sm:space-y-2.5">
-                {["Rings", "Earrings", "Necklaces", "Bracelets", "Brooches", "Anklets"].map((item) => (
+                {["Rings", "Earrings", "Necklaces", "Bracelets", "Brooches", "Anklets", "Gift Sets"].map((item) => (
                   <li key={item}>
                     <Link
                       href={`/shop?category=${item.toLowerCase()}`}
@@ -32,9 +32,16 @@ export function Footer() {
             <div>
               <h3 className="mb-3 text-[11px] uppercase tracking-[0.22em] text-background/40 sm:mb-4 sm:text-xs sm:tracking-[0.2em]">Info</h3>
               <ul className="space-y-2 sm:space-y-2.5">
-                {["About", "Contact", "Shipping", "Returns"].map((item) => (
-                  <li key={item}>
-                    <span className="text-sm text-background/60">{item}</span>
+                {[
+                  { label: "Jewelry Care", href: "/care" },
+                  { label: "Shipping", href: "#" },
+                  { label: "Returns", href: "#" },
+                  { label: "Contact", href: "mailto:hello@liorastudiousa.com" },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <Link href={item.href} className="text-sm text-background/60 hover:text-background">
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -51,13 +58,46 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-background/10 pt-6 text-center sm:mt-12 sm:gap-4 sm:pt-8 md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="max-w-md text-[11px] tracking-[0.14em] text-background/40 sm:text-xs sm:tracking-[0.16em]">
-            Curated jewelry, measured releases, and a quieter kind of presence.
-          </p>
-          <p className="text-[11px] tracking-wide text-background/40 sm:text-xs">
-            &copy; {new Date().getFullYear()} LIORA STUDIO. All rights reserved.
-          </p>
+        <div className="mt-10 border-t border-background/10 pt-6 sm:mt-12 sm:pt-8">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-background/40 md:justify-start">
+            <span className="text-[10px] uppercase tracking-[0.18em]">We accept</span>
+            <div className="flex items-center gap-3">
+              {/* Visa */}
+              <svg viewBox="0 0 38 24" className="h-6 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="currentColor" fillOpacity="0.15"/>
+                <text x="19" y="15" textAnchor="middle" fill="currentColor" fontSize="9" fontWeight="700" fontFamily="sans-serif">VISA</text>
+              </svg>
+              {/* Mastercard */}
+              <svg viewBox="0 0 38 24" className="h-6 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="currentColor" fillOpacity="0.15"/>
+                <circle cx="15" cy="12" r="6" fill="currentColor" fillOpacity="0.3"/>
+                <circle cx="23" cy="12" r="6" fill="currentColor" fillOpacity="0.3"/>
+              </svg>
+              {/* Amex */}
+              <svg viewBox="0 0 38 24" className="h-6 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="currentColor" fillOpacity="0.15"/>
+                <text x="19" y="15" textAnchor="middle" fill="currentColor" fontSize="7" fontWeight="700" fontFamily="sans-serif">AMEX</text>
+              </svg>
+              {/* PayPal */}
+              <svg viewBox="0 0 38 24" className="h-6 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="currentColor" fillOpacity="0.15"/>
+                <text x="19" y="15" textAnchor="middle" fill="currentColor" fontSize="7" fontWeight="600" fontFamily="sans-serif">PayPal</text>
+              </svg>
+              {/* Apple Pay */}
+              <svg viewBox="0 0 38 24" className="h-6 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="currentColor" fillOpacity="0.15"/>
+                <text x="19" y="15" textAnchor="middle" fill="currentColor" fontSize="6.5" fontWeight="600" fontFamily="sans-serif"> Pay</text>
+              </svg>
+            </div>
+          </div>
+          <div className="mt-5 flex flex-col gap-3 text-center sm:gap-4 md:flex-row md:items-center md:justify-between md:text-left">
+            <p className="max-w-md text-[11px] tracking-[0.14em] text-background/40 sm:text-xs sm:tracking-[0.16em]">
+              Curated jewelry, measured releases, and a quieter kind of presence.
+            </p>
+            <p className="text-[11px] tracking-wide text-background/40 sm:text-xs">
+              &copy; {new Date().getFullYear()} LIORA STUDIO. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

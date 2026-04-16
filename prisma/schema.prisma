@@ -36,6 +36,7 @@ model Product {
   inStock      Boolean        @default(true)
   featured     Boolean        @default(false)
   views        ProductView[]
+  reviews      Review[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
@@ -45,6 +46,16 @@ model ProductView {
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   viewedAt  DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  author    String
+  rating    Int
+  body      String
+  createdAt DateTime @default(now())
 }
 
 model Offer {

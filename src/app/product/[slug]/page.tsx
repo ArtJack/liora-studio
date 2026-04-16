@@ -9,6 +9,7 @@ import { ProductCard } from "@/components/product-card";
 import { ViewTracker } from "./view-tracker";
 import { getProductPageData, getRelatedProducts } from "@/lib/storefront-data";
 import { prisma } from "@/lib/db";
+import { ReviewSection } from "./reviews";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -31,6 +32,10 @@ export default async function ProductPage({ params }: Props) {
 
   const sizes = product.sizes ? product.sizes.split(",").map((s) => s.trim()) : [];
   const colors = product.colors ? product.colors.split(",").map((c) => c.trim()) : [];
+  const averageRating =
+    product.reviews.length > 0
+      ? product.reviews.reduce((sum, review) => sum + review.rating, 0) / product.reviews.length
+      : 0;
 
   const relatedProducts = await getRelatedProducts(product.categoryId, product.id);
 
@@ -63,7 +68,22 @@ export default async function ProductPage({ params }: Props) {
                 ${product.comparePrice.toLocaleString()}
               </p>
             )}
+            {product.comparePrice && product.comparePrice > product.price && (
+              <span className="rounded-full bg-green-100 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-green-800 dark:bg-green-900 dark:text-green-300">
+                Save {Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)}%
+              </span>
+            )}
           </div>
+
+          {product.inStock && (
+            <div className="mt-3 flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+              </span>
+              <span className="text-xs text-green-700 dark:text-green-400">In stock — ready to ship</span>
+            </div>
+          )}
 
           <div className="mt-6 border-t border-border pt-6">
             <p className="text-sm leading-relaxed text-muted">{product.description}</p>
@@ -117,6 +137,22 @@ export default async function ProductPage({ params }: Props) {
               </p>
             </div>
           </div>
+
+          <div className="mt-5 text-sm">
+            <Link href="/care" className="text-accent transition-colors hover:text-foreground">
+              Read the jewelry care guide
+            </Link>
+          </div>
+
+          <ReviewSection
+            productId={product.id}
+            productSlug={product.slug}
+            reviews={product.reviews.map((review) => ({
+              ...review,
+              createdAt: review.createdAt.toISOString(),
+            }))}
+            averageRating={averageRating}
+          />
         </div>
       </div>
 
