@@ -15,7 +15,7 @@ const navLinks = [
   { href: "/shop?category=necklaces", label: "Necklaces" },
   { href: "/shop?category=bracelets", label: "Bracelets" },
   { href: "/shop?category=brooches", label: "Brooches" },
-  { href: "/shop?category=mystery-box", label: "Mystery Box" },
+  { href: "/shop?category=gift-sets", label: "Mystery Box" },
 ];
 
 export function Header() {
@@ -27,7 +27,7 @@ export function Header() {
     <>
       <header className="sticky top-0 z-50 border-b border-border/70 bg-surface/70 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid h-15 grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:h-16 sm:items-center sm:justify-between lg:h-[4.75rem]">
+          <div className="grid h-15 grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-3 sm:h-16 lg:h-[4.75rem] lg:grid-cols-[272px_minmax(0,1fr)_auto] xl:grid-cols-[292px_minmax(0,1fr)_auto]">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 lg:hidden"
@@ -38,26 +38,26 @@ export function Header() {
 
             <Link
               href="/"
-              className="min-w-0 text-center lg:static lg:translate-x-0"
+              className="min-w-0 text-center lg:justify-self-start"
             >
-              <h1 className="truncate px-2 text-[14px] font-light tracking-[0.2em] text-foreground sm:px-0 sm:text-xl sm:tracking-[0.32em] lg:text-[1.55rem]">
+              <h1 className="truncate px-2 text-[14px] font-light tracking-[0.2em] text-foreground sm:px-0 sm:text-xl sm:tracking-[0.32em] lg:text-[1.5rem] xl:text-[1.55rem]">
                 LIORA STUDIO
               </h1>
             </Link>
 
-            <nav className="hidden items-center gap-7 lg:flex">
+            <nav className="hidden items-center justify-center gap-4 pl-4 xl:gap-6 xl:pl-0 lg:flex">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-[11px] uppercase tracking-[0.22em] text-muted hover:text-foreground"
+                  className="text-[10px] uppercase tracking-[0.16em] text-muted hover:text-foreground xl:text-[11px] xl:tracking-[0.2em]"
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-end gap-2 lg:justify-self-end">
               <button
                 onClick={toggleTheme}
                 className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 sm:hidden"

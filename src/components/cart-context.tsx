@@ -9,14 +9,19 @@ export type CartItem = {
   image: string;
   size?: string;
   color?: string;
+  note?: string;
   quantity: number;
 };
+
+export function getCartItemKey(item: Pick<CartItem, "id" | "size" | "color" | "note">) {
+  return `${item.id}-${item.size ?? ""}-${item.color ?? ""}-${item.note ?? ""}`;
+}
 
 type CartContextType = {
   items: CartItem[];
   addItem: (item: Omit<CartItem, "quantity">) => void;
-  removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  removeItem: (key: string) => void;
+  updateQuantity: (key: string, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -32,13 +37,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = useCallback((newItem: Omit<CartItem, "quantity">) => {
     setItems((prev) => {
-      const key = `${newItem.id}-${newItem.size ?? ""}-${newItem.color ?? ""}`;
-      const existing = prev.find(
-        (i) => `${i.id}-${i.size ?? ""}-${i.color ?? ""}` === key
-      );
+      const key = getCartItemKey(newItem);
+      const existing = prev.find((i) => getCartItemKey(i) === key);
       if (existing) {
         return prev.map((i) =>
-          `${i.id}-${i.size ?? ""}-${i.color ?? ""}` === key
+          getCartItemKey(i) === key
             ? { ...i, quantity: i.quantity + 1 }
             : i
         );
@@ -48,15 +51,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsOpen(true);
   }, []);
 
-  const removeItem = useCallback((id: string) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
+  const removeItem = useCallback((key: string) => {
+    setItems((prev) => prev.filter((i) => getCartItemKey(i) !== key));
   }, []);
 
-  const updateQuantity = useCallback((id: string, quantity: number) => {
+  const updateQuantity = useCallback((key: string, quantity: number) => {
     if (quantity <= 0) {
-      setItems((prev) => prev.filter((i) => i.id !== id));
+      setItems((prev) => prev.filter((i) => getCartItemKey(i) !== key));
     } else {
-      setItems((prev) => prev.map((i) => (i.id === id ? { ...i, quantity } : i)));
+      setItems((prev) => prev.map((i) => (getCartItemKey(i) === key ? { ...i, quantity } : i)));
     }
   }, []);
 

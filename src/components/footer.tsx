@@ -22,7 +22,7 @@ export function Footer() {
                   { label: "Necklaces", slug: "necklaces" },
                   { label: "Bracelets", slug: "bracelets" },
                   { label: "Brooches", slug: "brooches" },
-                  { label: "Mystery Box", slug: "mystery-box" },
+                  { label: "Mystery Box", slug: "gift-sets" },
                 ].map((item) => (
                   <li key={item.slug}>
                     <Link

@@ -8,7 +8,23 @@ const adapter = new PrismaLibSql({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  // Clean up non-jewelry categories and products (optional, but requested "only jewelry")
+  const allowedCategorySlugs = ["rings", "earrings", "brooches", "necklaces", "bracelets", "gift-sets"];
+
+  // Clean up non-canonical categories and any products that still belong to them.
+  await prisma.product.deleteMany({
+    where: {
+      category: {
+        slug: { notIn: allowedCategorySlugs },
+      },
+    },
+  });
+  await prisma.category.deleteMany({
+    where: {
+      slug: { notIn: allowedCategorySlugs },
+    },
+  });
+
+  // Rebuild the canonical jewelry collection.
   await prisma.product.deleteMany({});
   await prisma.category.deleteMany({});
 
@@ -44,9 +60,9 @@ async function main() {
   });
 
   const mysteryBox = await prisma.category.upsert({
-    where: { slug: "mystery-box" },
-    update: {},
-    create: { name: "Mystery Box", slug: "mystery-box", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
+    where: { slug: "gift-sets" },
+    update: { name: "Mystery Box", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
+    create: { name: "Mystery Box", slug: "gift-sets", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
   });
 
   const products = [
