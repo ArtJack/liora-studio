@@ -2,6 +2,22 @@ import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function POST() {
+  const allowedCategorySlugs = ["rings", "earrings", "brooches", "necklaces", "bracelets", "gift-sets"];
+
+  // Remove legacy categories like Anklets before syncing the current catalog.
+  await prisma.product.deleteMany({
+    where: {
+      category: {
+        slug: { notIn: allowedCategorySlugs },
+      },
+    },
+  });
+  await prisma.category.deleteMany({
+    where: {
+      slug: { notIn: allowedCategorySlugs },
+    },
+  });
+
   // Create 6 jewelry categories
   const rings = await prisma.category.upsert({
     where: { slug: "rings" },
@@ -34,9 +50,9 @@ export async function POST() {
   });
 
   const mysteryBox = await prisma.category.upsert({
-    where: { slug: "mystery-box" },
-    update: {},
-    create: { name: "Mystery Box", slug: "mystery-box", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
+    where: { slug: "gift-sets" },
+    update: { name: "Mystery Box", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
+    create: { name: "Mystery Box", slug: "gift-sets", description: "Mystery bags, curated boxes, and surprise jewelry bundles" },
   });
 
   const products = [

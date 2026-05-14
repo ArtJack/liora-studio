@@ -12,45 +12,33 @@ export function ThemeToggle() {
     { value: "system", label: "Auto", icon: LaptopMinimal },
   ] as const;
 
-  return (
-    <div
-      className="theme-toggle-shell"
-      aria-label="Theme controls"
-      role="group"
-    >
-      {options.map((option) => {
-        const Icon = option.icon;
-        const active =
-          themePreference === option.value ||
-          (option.value !== "system" && themePreference === "system" && resolvedTheme === option.value);
+  const currentIndex = options.findIndex((option) => option.value === themePreference);
+  const currentOption = options[currentIndex] ?? options[2];
+  const nextOption = options[(currentIndex + 1) % options.length] ?? options[0];
+  const Icon = currentOption.icon;
+  const resolvedLabel = themePreference === "system" ? `Auto (${resolvedTheme})` : currentOption.label;
 
-        return (
-          <button
-            key={option.value}
-            type="button"
-            onClick={() => setThemePreference(option.value)}
-            className="theme-toggle-option"
-            aria-label={`Use ${option.label.toLowerCase()} theme`}
-            aria-pressed={active}
-            data-active={active}
-            title={option.label}
-          >
-            <span className="theme-toggle-option__backdrop" aria-hidden="true" />
-            <span className="theme-toggle-option__content">
-              <span
-                className="theme-toggle-option__icon"
-                data-mode={option.value}
-                data-active={active}
-                data-resolved={option.value === "system" ? resolvedTheme : undefined}
-                aria-hidden="true"
-              >
-                <Icon size={14} />
-              </span>
-              <span className="hidden sm:inline">{option.label}</span>
-            </span>
-          </button>
-        );
-      })}
-    </div>
+  return (
+    <button
+      type="button"
+      onClick={() => setThemePreference(nextOption.value)}
+      className="theme-toggle-shell"
+      aria-label={`Theme: ${resolvedLabel}. Click to switch to ${nextOption.label}.`}
+      title={`Theme: ${resolvedLabel}. Next: ${nextOption.label}`}
+    >
+      <span className="theme-toggle-option__backdrop" aria-hidden="true" />
+      <span className="theme-toggle-option__content">
+        <span
+          className="theme-toggle-option__icon"
+          data-mode={currentOption.value}
+          data-active="true"
+          data-resolved={currentOption.value === "system" ? resolvedTheme : undefined}
+          aria-hidden="true"
+        >
+          <Icon size={14} />
+        </span>
+        <span className="theme-toggle-option__label">{currentOption.label}</span>
+      </span>
+    </button>
   );
 }

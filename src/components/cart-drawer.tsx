@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
-import { useCart } from "./cart-context";
+import { getCartItemKey, useCart } from "./cart-context";
 import Image from "next/image";
 
 export function CartDrawer() {
@@ -54,9 +54,12 @@ export function CartDrawer() {
             </div>
           ) : (
             <div className="space-y-6">
-              {items.map((item) => (
+              {items.map((item) => {
+                const itemKey = getCartItemKey(item);
+
+                return (
                 <div
-                  key={`${item.id}-${item.size}-${item.color}`}
+                  key={itemKey}
                   className="flex gap-4 rounded-[26px] border border-border/60 bg-background/30 p-3"
                 >
                   <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-2xl bg-background">
@@ -68,28 +71,37 @@ export function CartDrawer() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="truncate text-sm font-medium">{item.name}</h3>
-                    {(item.size || item.color) && (
-                      <p className="mt-0.5 text-xs text-muted">
-                        {[item.size, item.color].filter(Boolean).join(" / ")}
-                      </p>
+                    {(item.size || item.color || item.note) && (
+                      <div className="mt-1 space-y-1">
+                        {(item.size || item.color) && (
+                          <p className="text-xs text-muted">
+                            {[item.size, item.color].filter(Boolean).join(" / ")}
+                          </p>
+                        )}
+                        {item.note && (
+                          <p className="line-clamp-2 text-[11px] leading-relaxed text-muted/90">
+                            Note: {item.note}
+                          </p>
+                        )}
+                      </div>
                     )}
                     <p className="mt-1 text-sm">${item.price.toLocaleString()}</p>
                     <div className="mt-2 flex items-center gap-3">
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => updateQuantity(itemKey, item.quantity - 1)}
                         className="rounded-full border border-border/70 p-1 text-muted hover:text-foreground"
                       >
                         <Minus size={14} />
                       </button>
                       <span className="w-4 text-center text-xs">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() => updateQuantity(itemKey, item.quantity + 1)}
                         className="rounded-full border border-border/70 p-1 text-muted hover:text-foreground"
                       >
                         <Plus size={14} />
                       </button>
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(itemKey)}
                         className="ml-auto text-xs text-muted underline hover:text-foreground"
                       >
                         Remove
@@ -97,7 +109,8 @@ export function CartDrawer() {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

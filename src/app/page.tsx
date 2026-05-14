@@ -8,12 +8,12 @@ import { getHomePageData } from "@/lib/storefront-data";
 
 
 const categories = [
-  { name: "Rings", slug: "rings", description: "Elegant statements", image: "/images/products/diamond-solitaire-engagement-ring.jpg" },
-  { name: "Earrings", slug: "earrings", description: "Everyday sparkle", image: "/images/products/diamond-stud-earrings.jpg" },
-  { name: "Necklaces", slug: "necklaces", description: "Layered beauty", image: "/images/products/diamond-pendant-necklace.jpg" },
-  { name: "Bracelets", slug: "bracelets", description: "Wrist adornments", image: "/images/products/diamond-tennis-bracelet.jpg" },
-  { name: "Brooches", slug: "brooches", description: "Timeless accents", image: "/images/products/crystal-flower-brooch.jpg" },
-  { name: "Mystery Box", slug: "mystery-box", description: "Surprise picks", image: "/images/products/jewelry-mystery-bag.jpg" },
+  { name: "Rings", slug: "rings", description: "Elegant statements", image: "/images/products/rings.png" },
+  { name: "Earrings", slug: "earrings", description: "Everyday sparkle", image: "/images/products/earrings.png" },
+  { name: "Necklaces", slug: "necklaces", description: "Layered beauty", image: "/images/products/necklace.png" },
+  { name: "Bracelets", slug: "bracelets", description: "Wrist adornments", image: "/images/products/bracelet.png" },
+  { name: "Brooches", slug: "brooches", description: "Timeless accents", image: "/images/products/brooche.png" },
+  { name: "Mystery Box", slug: "gift-sets", description: "Surprise picks", image: "/images/products/mystery.png" },
 ];
 
 const servicePillars = [
@@ -71,7 +71,7 @@ export default async function HomePage() {
                   <ArrowRight size={16} />
                 </Link>
                 <Link
-                  href="/shop?category=mystery-box"
+                  href="/shop?category=gift-sets"
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-6 py-3 text-sm uppercase tracking-[0.18em] text-background/80 backdrop-blur-sm hover:-translate-y-0.5 hover:bg-white/14 sm:px-7 sm:py-3.5"
                 >
                   <Package size={15} />
@@ -210,7 +210,7 @@ export default async function HomePage() {
       {/* ─── 5. Mystery Box Promo ─── */}
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8">
         <Link
-          href="/shop?category=mystery-box"
+          href="/shop?category=gift-sets"
           className="grain-overlay group relative block overflow-hidden rounded-[30px] border border-border/70 bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-accent-light)_16%,var(--color-surface)),color-mix(in_srgb,var(--color-background)_88%,black))] transition-all hover:-translate-y-1 sm:rounded-[34px]"
         >
           <div className="grid gap-6 px-6 py-8 sm:px-10 sm:py-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:px-14 lg:py-12">
