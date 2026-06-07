@@ -48,3 +48,6 @@ next-env.d.ts
 
 # uploads
 /public/uploads
+
+# but DO track the template
+!.env.example
