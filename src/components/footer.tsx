@@ -107,6 +107,15 @@ export function Footer() {
             </p>
             <p className="text-[11px] tracking-wide text-background/40 sm:text-xs">
               &copy; {new Date().getFullYear()} LIORA STUDIO. All rights reserved.
+              <br />
+              <a
+                href="https://artjeck.com/web-development"
+                target="_blank"
+                rel="noopener"
+                className="hover:text-background/60"
+              >
+                Website by ArtJeck Technology
+              </a>
             </p>
           </div>
         </div>
